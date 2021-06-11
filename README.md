@@ -1,6 +1,6 @@
-# seba-master-movie-backend application
+# laundrywise-backend application
 
-seba-master-movie-frontend application can be found [here](https://github.com/sebischair/seba-master-movie-frontend)
+laundrywise-frontend application can be found [here](https://gitlab.lrz.de/seba-master-2021/team-39/backend.git)
 
 ## Prerequisites
 
