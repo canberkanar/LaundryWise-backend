@@ -1,9 +1,12 @@
 "use strict";
-
 const mongoose = require("mongoose");
-
 // Define the user schema
 const UserSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true,
+        index: true,
+    },
     username: {
         type: String,
         required: true,
@@ -35,7 +38,7 @@ const UserSchema = new mongoose.Schema({
 
 
     // role of the user, used for rights management
-    role: {
+    userType: {
         type: String,
         // role can only take the value "member" and "admin"
         enum: ["customer", "serviceProvider", "admin"],
