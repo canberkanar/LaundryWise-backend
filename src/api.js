@@ -10,6 +10,7 @@ const auth = require('./routes/auth');
 const movie = require('./routes/movie');
 const laundryRoom = require('./routes/laundryroom')
 const machine = require('./routes/machine')
+const feedback = require('./routes/feedback')
 const api = express();
 
 // Adding Basic Middlewares
@@ -22,7 +23,7 @@ api.use(middlewares.allowCrossDomain);
 // Basic route
 api.get('/', (req, res) => {
     res.json({
-        name: 'SEBA Master Movie Backend'
+        name: 'Welcome to LaundryWise'
     });
 });
 
@@ -31,4 +32,5 @@ api.use('/auth', auth);
 api.use('/movies', movie);
 api.use('/laundryroom', laundryRoom)
 api.use('/machine', machine)
+api.use('/feedback',feedback)
 module.exports = api;
