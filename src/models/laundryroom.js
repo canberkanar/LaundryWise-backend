@@ -122,3 +122,4 @@ const AnnouncementSchema = new mongoose.Schema({
 // module.exports = mongoose.model("ResidentialArea", ResidentialAreaSchema);
 module.exports = mongoose.model("LaundryRoom", LaundryRoomSchema);
 module.exports = mongoose.model("Announcement", AnnouncementSchema);
+module.exports = mongoose.model("machine", MachineSchema);
