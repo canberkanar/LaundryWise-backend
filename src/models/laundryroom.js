@@ -21,6 +21,29 @@ const mongoose = require("mongoose");
 //     }],
 // });
 
+const TimeSlotSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true,
+        index: true,
+    },
+    date: {
+        type: Date,
+        required: true,
+    },
+    startTime: {
+        type: Date,
+        required: true,
+    },
+    endTime: {
+        type: Date,
+        required: true,
+    },
+    isAvailable: {
+        type: Boolean,
+        default: true
+    },
+});
 
 const MachineSchema = new mongoose.Schema({
     deviceNumberInRoom: {
@@ -46,6 +69,7 @@ const MachineSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
+    timeslots: [TimeSlotSchema],
     price: {
         type: Number,
         required: true
@@ -76,6 +100,7 @@ const LaundryRoomSchema = new mongoose.Schema({
         ref: "AnnouncementSchema"
     }],
 });
+
 
 
 const AnnouncementSchema = new mongoose.Schema({
