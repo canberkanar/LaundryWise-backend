@@ -3,12 +3,12 @@
 const mongoose = require("mongoose");
 
 // this is that the later created virtuals are included in the json send to the user
-const opts = { toJSON: { virtuals: true } };
+const opts = {toJSON: {virtuals: true}};
 
 // Define schema for ratings
 const RatingSchema = new mongoose.Schema({
     // user who gave the rating
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    userId: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     // rating of user
     rating: {
         type: Number,
