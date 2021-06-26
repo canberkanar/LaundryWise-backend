@@ -84,9 +84,24 @@ const update = async (req, res) => {
     }
 };
 
+const remove = async (req, res) => {
+    try {
+        let removed = await Feedback.findByIdAndDelete(req.body.id);
+        return res.status(200).send(removed);
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            error: "Internal server error",
+            message: err.message,
+        });
+    }
+};
+
 module.exports = {
     list,
     create,
     get,
-    update
+    update,
+    remove
 };

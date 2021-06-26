@@ -10,11 +10,11 @@ const machine = require('./laundryroom').machine
 // RoleSchema.mac
 
 const FeedbackSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true,
-        index: true,
-    },
+   // id: {
+     //   type: String,
+       // required: true,
+        //index: true,
+    //},
     score: {
         type: "Number",
         required: true,
