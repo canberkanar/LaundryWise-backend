@@ -101,8 +101,6 @@ const LaundryRoomSchema = new mongoose.Schema({
     }],
 });
 
-
-
 const AnnouncementSchema = new mongoose.Schema({
     id: {
         type: String,
@@ -117,7 +115,6 @@ const AnnouncementSchema = new mongoose.Schema({
         type: String
     },
 });
-
 
 // module.exports = mongoose.model("ResidentialArea", ResidentialAreaSchema);
 module.exports = mongoose.model("LaundryRoom", LaundryRoomSchema);

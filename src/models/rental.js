@@ -3,7 +3,6 @@
 const mongoose = require("mongoose");
 const MachineSchema = require('./laundryroom')
 
-
 // // import MachineSchema from './laundryroom';
 //
 // const Role = require('./laundryroom/Machine')

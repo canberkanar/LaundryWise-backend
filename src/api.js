@@ -8,7 +8,7 @@ const middlewares = require('./middlewares');
 
 const auth = require('./routes/auth');
 const movie = require('./routes/movie');
-const laundry = require('./routes/laundry')
+const laundryRoom = require('./routes/laundryroom')
 
 const api = express();
 
@@ -29,6 +29,6 @@ api.get('/', (req, res) => {
 // API routes
 api.use('/auth', auth);
 api.use('/movies', movie);
-api.use('/laundry', laundry)
+api.use('/laundryroom', laundryRoom)
 
 module.exports = api;
