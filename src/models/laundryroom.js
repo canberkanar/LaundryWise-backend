@@ -48,12 +48,12 @@ const TimeSlotSchema = new mongoose.Schema({
 const MachineSchema = new mongoose.Schema({
     deviceNumberInRoom: {
         type: Number,
-        // required: true
+        required: true
     },
     machineType: {
         type: String,
         enum: ["washer", "dryer"],
-        // required: true
+        required: true
     },
     isEnabled: {
         type: Boolean,
@@ -61,18 +61,18 @@ const MachineSchema = new mongoose.Schema({
     },
     operationCount: {
         type: Number,
-        // required: true,
+        required: true,
         default: 0,
     },
     registrationDate: {
         type: Date,
-        // required: true,
+        required: true,
         default: Date.now
     },
     timeslots: [TimeSlotSchema],
     price: {
         type: Number,
-        // required: true
+        required: true
     }
 
 })

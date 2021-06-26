@@ -1,4 +1,4 @@
-const {a, v, LaundryRoom} = require("../models/laundryroom");
+const {LaundryRoom} = require("../models/laundryroom");
 
 const list = async (req, res) => {
     try {
@@ -39,7 +39,6 @@ const create = async (req, res) => {
         });
     }
 };
-
 
 module.exports = {
     list,
