@@ -48,12 +48,12 @@ const TimeSlotSchema = new mongoose.Schema({
 const MachineSchema = new mongoose.Schema({
     deviceNumberInRoom: {
         type: Number,
-        required: true
+        // required: true
     },
     machineType: {
         type: String,
         enum: ["washer", "dryer"],
-        required: true
+        // required: true
     },
     isEnabled: {
         type: Boolean,
@@ -61,25 +61,25 @@ const MachineSchema = new mongoose.Schema({
     },
     operationCount: {
         type: Number,
-        required: true,
+        // required: true,
         default: 0,
     },
     registrationDate: {
         type: Date,
-        required: true,
+        // required: true,
         default: Date.now
     },
     timeslots: [TimeSlotSchema],
     price: {
         type: Number,
-        required: true
+        // required: true
     }
 
 })
 
 const LaundryRoomSchema = new mongoose.Schema({
     id: {
-        type: String,
+        type: Number,
         required: true,
         index: true,
     },
@@ -94,7 +94,7 @@ const LaundryRoomSchema = new mongoose.Schema({
     address: {
         type: String
     },
-    machines: [MachineSchema],
+    machines: [{MachineSchema}],
     announcements: [{
         type: String,
         ref: "AnnouncementSchema"
@@ -117,6 +117,6 @@ const AnnouncementSchema = new mongoose.Schema({
 });
 
 // module.exports = mongoose.model("ResidentialArea", ResidentialAreaSchema);
-module.exports = mongoose.model("LaundryRoom", LaundryRoomSchema);
+const LandryRoomModel = mongoose.model("LaundryRoom", LaundryRoomSchema);
 module.exports = mongoose.model("Announcement", AnnouncementSchema);
 module.exports = mongoose.model("machine", MachineSchema);
