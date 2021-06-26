@@ -1,21 +1,21 @@
 "use strict";
 
-const express    = require('express');
+const express = require('express');
 const bodyParser = require('body-parser');
-const helmet     = require('helmet');
+const helmet = require('helmet');
 
 const middlewares = require('./middlewares');
 
-const auth  = require('./routes/auth');
+const auth = require('./routes/auth');
 const movie = require('./routes/movie');
-
-
+const laundryRoom = require('./routes/laundryroom')
+const machine = require('./routes/machine')
 const api = express();
 
 // Adding Basic Middlewares
 api.use(helmet());
 api.use(bodyParser.json());
-api.use(bodyParser.urlencoded({ extended: false }));
+api.use(bodyParser.urlencoded({extended: false}));
 api.use(middlewares.allowCrossDomain);
 
 
@@ -27,8 +27,8 @@ api.get('/', (req, res) => {
 });
 
 // API routes
-api.use('/auth'  , auth);
+api.use('/auth', auth);
 api.use('/movies', movie);
-
-
+api.use('/laundryroom', laundryRoom)
+api.use('/machine', machine)
 module.exports = api;

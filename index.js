@@ -1,9 +1,9 @@
 "use strict";
 
-const http       = require('http');
-const mongoose   = require('mongoose');
-const api        = require('./src/api');
-const config     = require('./src/config');
+const http = require('http');
+const mongoose = require('mongoose');
+const api = require('./src/api');
+const config = require('./src/config');
 
 
 // Set the port to the API.
