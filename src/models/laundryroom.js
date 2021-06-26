@@ -117,6 +117,12 @@ const AnnouncementSchema = new mongoose.Schema({
 });
 
 // module.exports = mongoose.model("ResidentialArea", ResidentialAreaSchema);
-const LandryRoomModel = mongoose.model("LaundryRoom", LaundryRoomSchema);
-module.exports = mongoose.model("Announcement", AnnouncementSchema);
-module.exports = mongoose.model("machine", MachineSchema);
+const LaundryRoomModel = mongoose.model("LaundryRoom", LaundryRoomSchema);
+const AnnouncementModel = mongoose.model("Announcement", AnnouncementSchema);
+const MachineModel = mongoose.model("machine", MachineSchema);
+
+module.exports = {
+    LaundryRoom: LaundryRoomModel,
+    Announcement: AnnouncementModel,
+    machine: MachineModel
+}

@@ -9,7 +9,7 @@ const middlewares = require('./middlewares');
 const auth = require('./routes/auth');
 const movie = require('./routes/movie');
 const laundryRoom = require('./routes/laundryroom')
-
+const machine = require('./routes/machine')
 const api = express();
 
 // Adding Basic Middlewares
@@ -30,5 +30,5 @@ api.get('/', (req, res) => {
 api.use('/auth', auth);
 api.use('/movies', movie);
 api.use('/laundryroom', laundryRoom)
-
+api.use('/machine', machine)
 module.exports = api;
