@@ -45,7 +45,6 @@ const RentalSchema = new mongoose.Schema({
     feedback: FeedbackSchema,
 });
 
-// module.exports = mongoose.model("ResidentialArea", ResidentialAreaSchema);
 const FeedbackModel = mongoose.model("Feedback", FeedbackSchema);
 const AllocatedTimeModel = mongoose.model("AllocatedTime", AllocatedTimeSchema);
 const PaymentModel = mongoose.model("Payment", PaymentSchema);
