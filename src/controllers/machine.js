@@ -44,16 +44,6 @@ const create = async (req, res) => {
 
     // handle the request
     try {
-        // create movie in database
-        let m = await Machine.create(req.body);
-        //const xx = req.body.deviceRoomId;
-        let added_machine = await LaundryRoom.findOneAndUpdate(
-            {_id: req.body.deviceRoomId},
-            {$push: {machines: m}});
-        console.log(added_machine);
-
-        //LaundryRoom.updateOne({"id": req.body.deviceRoomId},)
-        // handle the request
         try {
             const timeslots = [];
 
@@ -65,76 +55,83 @@ const create = async (req, res) => {
                 });
             }
 
-            try {
-                let laundryRoom = await LaundryRoom.findById(req.body.deviceRoomId).exec();
+            let laundryRoom = await LaundryRoom.findById(req.body.deviceRoomId).exec();
 
-                if (laundryRoom == null) {
-                    console.log("RoomID Machine belongs to does not exist!");
-                    return res.status(500).json({
-                        error: "RoomID Machine belongs to does not exist!",
-                        message: "RoomID Machine belongs to does not exist!",
-                    });
-                }
-
-                const roomOperationStartHour = laundryRoom.toJSON().operationStartHour;
-                const roomOperationEndHour = laundryRoom.toJSON().operationEndHour;
-
-                let today = new Date();
-                let newStart = new Date();
-                let newEnd = new Date();
-
-                today.setHours(0, 0, 0, 0);
-                newStart.setHours(0, 0, 0, 0);
-                newEnd.setHours(0, 0, 0, 0);
-
-                for (i = 0; i < numberOfDaysToGenerate; i++) {
-                    for (j = 0; j < roomOperationEndHour - roomOperationStartHour - 1; j++) {
-
-                        newStart.setHours(roomOperationStartHour + j)
-                        newEnd.setHours(roomOperationStartHour + 1 + j)
-
-                        let slot = {
-                            date: new Date(today),
-                            startTime: new Date(newStart),
-                            endTime: new Date(newEnd)
-                        };
-
-                        pushedTimeSlot = await TimeSlot.create(slot);
-                        timeslots.push(pushedTimeSlot); // new object creation is needed since values are overwritten due to pass by reference
-                    }
-
-                    today.setDate(today.getDate() + 1);
-                    newStart.setDate(newStart.getDate() + 1);
-                    newEnd.setDate(newStart.getDate())
-                }
-
-                req.body.timeslots = timeslots; // merge created timeslots with create machine request
-
-            } catch (err) {
-                console.log(err);
+            if (laundryRoom == null) {
+                console.log("RoomID Machine belongs to does not exist!");
                 return res.status(500).json({
-                    error: "Internal Server Error",
-                    message: err.message,
+                    error: "RoomID Machine belongs to does not exist!",
+                    message: "RoomID Machine belongs to does not exist!",
                 });
             }
 
-            // create machine in database
-            let m = await Machine.create(req.body);
-            updateMachineTimeSlot(new String(pushedTimeSlot._id).toString(), "occupied")
+            const roomOperationStartHour = laundryRoom.toJSON().operationStartHour;
+            const roomOperationEndHour = laundryRoom.toJSON().operationEndHour;
 
-            return res.status(201).json(m);
+            let today = new Date();
+            let newStart = new Date();
+            let newEnd = new Date();
 
-        } catch
-            (err) {
+            today.setHours(0, 0, 0, 0);
+            newStart.setHours(0, 0, 0, 0);
+            newEnd.setHours(0, 0, 0, 0);
+
+            for (i = 0; i < numberOfDaysToGenerate; i++) {
+                for (j = 0; j < roomOperationEndHour - roomOperationStartHour - 1; j++) {
+
+                    newStart.setHours(roomOperationStartHour + j)
+                    newEnd.setHours(roomOperationStartHour + 1 + j)
+
+                    let slot = {
+                        date: new Date(today),
+                        startTime: new Date(newStart),
+                        endTime: new Date(newEnd)
+                    };
+                    let pushedTimeSlot;
+                    pushedTimeSlot = await TimeSlot.create(slot);
+                    timeslots.push(pushedTimeSlot); // new object creation is needed since values are overwritten due to pass by reference
+                }
+
+                today.setDate(today.getDate() + 1);
+                newStart.setDate(newStart.getDate() + 1);
+                newEnd.setDate(newStart.getDate())
+            }
+
+            req.body.timeslots = timeslots; // merge created timeslots with create machine request
+
+        } catch (err) {
             console.log(err);
             return res.status(500).json({
-                error: "Internal server error",
+                error: "Internal Server Error",
                 message: err.message,
             });
         }
 
 
+        // create movie in database
+        let m = await Machine.create(req.body);
+        //const xx = req.body.deviceRoomId;
+        let added_machine = await LaundryRoom.findOneAndUpdate(
+            {_id: req.body.deviceRoomId},
+            {$push: {machines: m}});
+
+        console.log(added_machine);
+
+        //LaundryRoom.updateOne({"id": req.body.deviceRoomId},)
+        // handle the request
+        // create machine in database
+        return res.status(201).json(m);
+
+    } catch
+        (err) {
+        console.log(err);
+        return res.status(500).json({
+            error: "Internal server error",
+            message: err.message,
+        });
     }
+
+
 };
 
 const update = async (req, res) => {
