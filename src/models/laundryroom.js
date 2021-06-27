@@ -124,5 +124,5 @@ const MachineModel = mongoose.model("machine", MachineSchema);
 module.exports = {
     LaundryRoom: LaundryRoomModel,
     Announcement: AnnouncementModel,
-    machine: MachineModel
+    Machine: MachineModel
 }
