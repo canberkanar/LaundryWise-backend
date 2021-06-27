@@ -65,14 +65,14 @@ const update = async (req, res) => {
         //feedback['score'] =  req.body.score;
         //feedback['message'] = req.body.message;
         // return gotten movies
-        let filter = { _id: req.body.id };
+        let filter = {_id: req.body.id};
         let updated_feedback = req.body;
         let updated_version = await Feedback.findOneAndUpdate(filter, updated_feedback, {
             new: true
         });
-       // Feedback.findOneAndUpdate({id:req.body.id}, req.body, function (err) {
+        // Feedback.findOneAndUpdate({id:req.body.id}, req.body, function (err) {
 
-         //   res.send(req.body);
+        //   res.send(req.body);
         //});
         return res.status(200).send(updated_version);
 
