@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "f0bb0d72-77d5-47fe-bd93-79a1c12ce96d",
+		"name": "LaundryWise",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Basic route",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Laundry Rooms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/laundryroom",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"laundryroom"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Laundry Room",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":3,\r\n    \"name\": \"unity\",\r\n    \"isActive\":true,\r\n    \"address\": \"josef wirth weg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/laundryroom/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"laundryroom",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Feedback",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/feedback/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"feedback",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Feedback",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"score\": 5,\r\n        \"message\": \"lllll\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/feedback",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"feedback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Feedback from Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"60d822b9f6b5ef4434f6244e\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/feedback/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"feedback",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Feedback",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"60d820d5a008e33c643de3d1\",\r\n    \"score\": 5,\r\n    \"message\": \"not so bad\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/feedback/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"feedback",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Feedback",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"60d820dba008e33c643de3d3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/feedback/remove",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"feedback",
+						"remove"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Machines",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/machine/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"machine",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crete a Machine",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"deviceNumberInRoom\": 3,\r\n        \"machineType\": \"washer\",\r\n        \"isEnabled\": false,\r\n        \"operationCount\": 0,\r\n        \"registrationDate\": \"Sun Feb 01 2020 00:00:00 GMT+0000\",\r\n        \"price\":5\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/machine/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"machine",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Machine from Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"60d81afe66ccac4384290e67\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/machine/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"machine",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Machine",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"isEnabled\": false,\r\n    \"operationCount\": 200,\r\n    \"id\": \"60d81bd158c0c71270e24296\",\r\n    \"deviceNumberInRoom\": 3,\r\n    \"machineType\": \"washer\",\r\n    \"registrationDate\": \"2020-02-01T00:00:00.000Z\",\r\n    \"price\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/machine/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"machine",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Machine",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"60d81bd158c0c71270e24296\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/machine/remove",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"machine",
+						"remove"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Rentals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/rental/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"rental",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Rental",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"machine\": {\r\n    \"deviceNumberInRoom\": 51,\r\n    \"machineType\": \"washer\",\r\n    \"isEnabled\": true,\r\n    \"operationCount\": 11,\r\n    \"price\": 1\r\n    },\r\n    \"allocatedTime\": {\r\n        \"startTime\": null,\r\n        \"endTime\": null\r\n    },\r\n    \"payment\": {\r\n        \"cost\": 50,\r\n        \"isPaid\": true\r\n    },\r\n    \"feedback\": {\r\n        \"score\": 5,\r\n        \"message\": \"LaundryWise is awesome!\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/rental/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"rental",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
