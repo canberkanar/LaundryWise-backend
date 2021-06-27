@@ -119,10 +119,10 @@ const AnnouncementSchema = new mongoose.Schema({
 // module.exports = mongoose.model("ResidentialArea", ResidentialAreaSchema);
 const LaundryRoomModel = mongoose.model("LaundryRoom", LaundryRoomSchema);
 const AnnouncementModel = mongoose.model("Announcement", AnnouncementSchema);
-const MachineModel = mongoose.model("machine", MachineSchema);
+const MachineModel = mongoose.model("Machine", MachineSchema);
 
 module.exports = {
     LaundryRoom: LaundryRoomModel,
     Announcement: AnnouncementModel,
-    machine: MachineModel
+    Machine: MachineModel
 }
