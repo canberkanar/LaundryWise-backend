@@ -13,7 +13,7 @@ const RentalController = require("../controllers/rental")
 
 router.get("/", RentalController.list);
 router.post("/", RentalController.create);
-
+router.put("/:id", RentalController.give_feedback_to_rental);
 
 
 module.exports = router;
