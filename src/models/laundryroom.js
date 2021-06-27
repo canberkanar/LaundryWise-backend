@@ -2,31 +2,7 @@
 
 const mongoose = require("mongoose");
 
-// const ResidentialAreaSchema = new mongoose.Schema({
-//     id: {
-//         type: String,
-//         required: true,
-//         index: true,
-//     },
-//     name: {
-//         type: String,
-//         required: true
-//     },
-//     address: {
-//         type: String
-//     },
-//     laundryRooms: [{
-//         type: String,
-//         ref: "LaundryRoomSchema"
-//     }],
-// });
-
 const TimeSlotSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true,
-        index: true,
-    },
     date: {
         type: Date,
         required: true,
@@ -74,15 +50,19 @@ const MachineSchema = new mongoose.Schema({
         type: Number,
         required: true
     }
-
 })
 
-const LaundryRoomSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        index: true,
+const AnnouncementSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
     },
+    body: {
+        type: String
+    },
+});
+
+const LaundryRoomSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -95,25 +75,7 @@ const LaundryRoomSchema = new mongoose.Schema({
         type: String
     },
     machines: [{MachineSchema}],
-    announcements: [{
-        type: String,
-        ref: "AnnouncementSchema"
-    }],
-});
-
-const AnnouncementSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true,
-        index: true,
-    },
-    title: {
-        type: String,
-        required: true
-    },
-    body: {
-        type: String
-    },
+    announcements: [AnnouncementSchema]
 });
 
 // module.exports = mongoose.model("ResidentialArea", ResidentialAreaSchema);
