@@ -45,7 +45,9 @@ npm run devstart
 npm start
 ```
 
-Auto restart server on change (Recommended)
+
+**Alternative (Recommended)**
+Auto restart server on change 
 First install nodemon
 ```bash
 npm install nodemon
