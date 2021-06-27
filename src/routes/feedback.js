@@ -9,6 +9,6 @@ const FeedbackController = require("../controllers/feedback")
 router.get("/all", FeedbackController.list);
 router.post("/", FeedbackController.create);
 router.get("/", FeedbackController.get);
-router.put("/update/:id", FeedbackController.update);
-router.post("/remove", FeedbackController.remove);
+router.put("/:id", FeedbackController.update);
+router.delete("/:id", FeedbackController.remove);
 module.exports = router;

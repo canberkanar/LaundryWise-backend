@@ -83,7 +83,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        let removed = await Machine.findByIdAndDelete(req.body.id);
+        let removed = await Machine.findByIdAndDelete(req.params.id);
         return res.status(200).send(removed);
 
     } catch (err) {

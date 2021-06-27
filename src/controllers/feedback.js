@@ -43,10 +43,10 @@ const create = async (req, res) => {
 
     // handle the request
     try {
-        // create movie in database
+        // create feedback in database
         let feedback = await Feedback.create(req.body);
 
-        // return created movie
+        // return created feedback
         return res.status(201).json(feedback);
     } catch (err) {
         console.log(err);
@@ -87,7 +87,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        let removed = await Feedback.findByIdAndDelete(req.body.id);
+        let removed = await Feedback.findByIdAndDelete(req.params.id);
         return res.status(200).send(removed);
 
     } catch (err) {
@@ -98,6 +98,7 @@ const remove = async (req, res) => {
         });
     }
 };
+
 
 module.exports = {
     list,

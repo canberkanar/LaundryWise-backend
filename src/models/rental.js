@@ -7,8 +7,7 @@ const MachineSchema = mongoose.model('Machine').schema;
 const FeedbackSchema = new mongoose.Schema({
     score: {
         type: "Number",
-        required: true,
-        min: 1,
+         min: 1,
         max: 5
     },
     message: {
