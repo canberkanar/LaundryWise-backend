@@ -1,20 +1,10 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const machine = require('./laundryroom').machine
 
-// // import MachineSchema from './laundryroom';
-//
-// const Role = require('./laundryroom/Machine')
-// const RoleSchema = mongoose.model('Role').schema
-// RoleSchema.mac
+const MachineSchema = mongoose.model('Machine').schema;
 
 const FeedbackSchema = new mongoose.Schema({
-   // id: {
-     //   type: String,
-       // required: true,
-        //index: true,
-    //},
     score: {
         type: "Number",
         required: true,
@@ -27,11 +17,6 @@ const FeedbackSchema = new mongoose.Schema({
 })
 
 const AllocatedTimeSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true,
-        index: true,
-    },
     startTime: {
         type: Date,
         required: true,
@@ -54,12 +39,7 @@ const PaymentSchema = new mongoose.Schema({
 })
 
 const RentalSchema = new mongoose.Schema({
-    // id: {
-    //     type: String,
-    //     required: true,
-    //     index: true,
-    // },
-    //machine: machine,
+    machine: MachineSchema,
     allocated_time: AllocatedTimeSchema,
     payment: PaymentSchema,
     feedback: FeedbackSchema,

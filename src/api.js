@@ -11,6 +11,7 @@ const movie = require('./routes/movie');
 const laundryRoom = require('./routes/laundryroom')
 const machine = require('./routes/machine')
 const feedback = require('./routes/feedback')
+const rental = require('./routes/rental')
 const api = express();
 
 // Adding Basic Middlewares
@@ -33,4 +34,5 @@ api.use('/movies', movie);
 api.use('/laundryroom', laundryRoom)
 api.use('/machine', machine)
 api.use('/feedback',feedback)
+api.use('/rental', rental)
 module.exports = api;
