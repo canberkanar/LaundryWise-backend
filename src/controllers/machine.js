@@ -1,5 +1,5 @@
 const {Machine} = require("../models/laundryroom");
-
+const {LaundryRoom} = require("../models/laundryroom");
 const list = async (req, res) => {
     try {
         // get all laundryrooms in database
@@ -46,6 +46,13 @@ const create = async (req, res) => {
     try {
         // create movie in database
         let m = await Machine.create(req.body);
+        //const xx = req.body.deviceRoomId;
+        let added_machine = await LaundryRoom.findOneAndUpdate(
+            { _id: req.body.deviceRoomId},
+            { $push: { machines: m } });
+        console.log(added_machine);
+
+        //LaundryRoom.updateOne({"id": req.body.deviceRoomId},)
 
         // return created movie
         return res.status(201).json(m);
