@@ -70,9 +70,9 @@ const update = async (req, res) => {
         let updated_version = await Feedback.findOneAndUpdate(filter, updated_feedback, {
             new: true
         });
-       // Feedback.findOneAndUpdate({id:req.body.id}, req.body, function (err) {
+        // Feedback.findOneAndUpdate({id:req.body.id}, req.body, function (err) {
 
-         //   res.send(req.body);
+        //   res.send(req.body);
         //});
         return res.status(200).send(updated_version);
 
