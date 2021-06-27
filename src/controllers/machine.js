@@ -61,9 +61,9 @@ const create = async (req, res) => {
 const update = async (req, res) => {
     try {
 
-        let filter = { _id: req.body.id };
-        let updated_feedback = req.body;
-        let updated_version = await Machine.findOneAndUpdate(filter, updated_feedback, {
+        let filter = { _id: req.params.id };
+        let updated_machine = req.body;
+        let updated_version = await Machine.findOneAndUpdate(filter, updated_machine, {
             new: true
         });
         // Feedback.findOneAndUpdate({id:req.body.id}, req.body, function (err) {
@@ -95,11 +95,36 @@ const remove = async (req, res) => {
     }
 };
 
+
+const update_machine_price = async (req, res) => {
+    try {
+
+        let m = await Machine.findById(req.params.id).exec();
+        if (!m)
+            return res.status(404).json({
+                error: "Not Found",
+                message: `Machine not found`,
+            });
+
+        m.price = req.body.price;
+        Machine.updateOne(m).exec();
+
+        return res.status(200).json(m);
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            error: "Internal server error",
+            message: err.message,
+        });
+    }
+};
 module.exports = {
     list,
     create,
     get,
     update,
-    remove
+    remove,
+    update_machine_price
 };
 
