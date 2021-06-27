@@ -44,3 +44,14 @@ npm run devstart
 ```bash
 npm start
 ```
+
+Auto restart server on change (Recommended)
+First install nodemon
+```bash
+npm install nodemon
+```
+then run
+```bash
+nodemon index.js
+```
+The system will fetch the latest version of code base everytime you save your changes, no need to start everytime!
