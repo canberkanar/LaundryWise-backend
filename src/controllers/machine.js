@@ -35,14 +35,24 @@ const get = async (req, res) => {
 };
 
 const create = async (req, res) => {
-    let pushedTimeSlot;
-        // check if the body of the request contains all necessary properties
-        if (Object.keys(req.body).length === 0)
-            return res.status(400).json({
-                error: "Bad Request",
-                message: "The request body is empty",
-            });
+    // check if the body of the request contains all necessary properties
+    if (Object.keys(req.body).length === 0)
+        return res.status(400).json({
+            error: "Bad Request",
+            message: "The request body is empty",
+        });
 
+    // handle the request
+    try {
+        // create movie in database
+        let m = await Machine.create(req.body);
+        //const xx = req.body.deviceRoomId;
+        let added_machine = await LaundryRoom.findOneAndUpdate(
+            {_id: req.body.deviceRoomId},
+            {$push: {machines: m}});
+        console.log(added_machine);
+
+        //LaundryRoom.updateOne({"id": req.body.deviceRoomId},)
         // handle the request
         try {
             const timeslots = [];
@@ -125,7 +135,7 @@ const create = async (req, res) => {
 
 
     }
-;
+};
 
 const update = async (req, res) => {
     try {
@@ -152,7 +162,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        let removed = await Machine.findByIdAndDelete(req.body.id);
+        let removed = await Machine.findByIdAndDelete(req.params.id);
         return res.status(200).send(removed);
 
     } catch (err) {
