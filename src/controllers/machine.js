@@ -213,6 +213,65 @@ async function updateMachineTimeSlot(timeSlotId, newStatus) {
     }
 }
 
+const enable_disable_machines_time_slots = async (req, res) => {
+    let machine= await Machine.findById(req.params.id).populate({
+        path: 'timeslots'
+    }).exec();
+    let matched_laundryRoom = null;
+    let laundryRooms = await LaundryRoom.find({}).exec();
+    for (let laundryRoom of laundryRooms){
+        for(let machine_id of laundryRoom.machines){
+            console.log(machine_id);
+            if(machine_id == req.params.id){
+                matched_laundryRoom = laundryRoom;
+                console.log('Room is matched');
+            }
+        }
+    }
+    let room_operation_start_time = matched_laundryRoom.operationStartHour;
+    let room_operation_end_time = matched_laundryRoom.operationEndHour;
+    const laundryRoomOperationStartTime = new Date();
+    const laundryRoomOperationEndTime = new Date();
+    laundryRoomOperationStartTime.setHours(0, 0, 0, 0);
+    laundryRoomOperationEndTime.setHours(0, 0, 0, 0);
+
+    laundryRoomOperationStartTime.setHours(room_operation_start_time);
+    laundryRoomOperationEndTime.setHours(room_operation_end_time);
+    if(req.body.operation === "disable"){
+        machine.isEnabled = false;
+        machine.save();
+        //console.log(timeslot.status);
+    }
+    /*else{ // enable
+        machine.isEnabled = true;
+        machine.save();
+    }*/
+
+
+    for (let timeslot of machine.timeslots){
+        if(req.body.operation === "disable"){
+            console.log("Before " + timeslot.status);
+            timeslot.status = "outOfService";
+            timeslot.save();
+            console.log("After "+ timeslot.status);
+        }else if(laundryRoomOperationStartTime <= timeslot.startTime &&
+            laundryRoomOperationEndTime >= timeslot.endTime){ // enable
+            machine.isEnabled = true;
+            machine.save();
+            console.log("Timeslot id " + timeslot._id)
+            console.log("Before " + timeslot.status);
+            timeslot.status = "available";
+            timeslot.save();
+            console.log("After "+ timeslot.status);
+        }
+
+    }
+    console.log(machine.isEnabled);
+    //console.log("sa");
+    return res
+        .status(200)
+        .json({ message: `Enable Disable is Done` });
+};
 module.exports = {
     list,
     create,
@@ -220,6 +279,7 @@ module.exports = {
     update,
     remove,
     update_machine_price,
-    updateMachineTimeSlot
+    updateMachineTimeSlot,
+    enable_disable_machines_time_slots
 };
 
