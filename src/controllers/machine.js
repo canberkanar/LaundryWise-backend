@@ -255,7 +255,7 @@ const enable_disable_machines_time_slots = async (req, res) => {
             timeslot.save();
             console.log("After "+ timeslot.status);
         }else if(laundryRoomOperationStartTime <= timeslot.startTime &&
-            laundryRoomOperationEndTime >= timeslot.endTime){ // enable
+            laundryRoomOperationEndTime >= timeslot.endTime && req.body.operation === "enable"){ // enable
             machine.isEnabled = true;
             machine.save();
             console.log("Timeslot id " + timeslot._id)
