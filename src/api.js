@@ -12,6 +12,7 @@ const laundryRoom = require('./routes/laundryroom')
 const machine = require('./routes/machine')
 const feedback = require('./routes/feedback')
 const rental = require('./routes/rental')
+const statistics = require('./routes/statistics')
 const api = express();
 
 // Adding Basic Middlewares
@@ -35,4 +36,5 @@ api.use('/laundryroom', laundryRoom)
 api.use('/machine', machine)
 api.use('/feedback',feedback)
 api.use('/rental', rental)
+api.use('/statistics', statistics)
 module.exports = api;
