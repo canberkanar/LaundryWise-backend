@@ -158,43 +158,23 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
+    let m = await Machine.findById(req.params.id).exec();
+    for(let ts of m.timeslots) {
+        let removed_ts = await TimeSlot.findByIdAndDelete(ts);
+
+    }
+
     let removed = await Machine.findOneAndRemove({ _id: req.params.id }, function (err, response) {
         if (err) throw err;
         LaundryRoom.update(
             { "machines": req.params.id },
             { "$pull": { "machines": req.params.id } },
-            function (err, res1){
+            async function (err, res1) {
                 if (err) throw err;
                 res.json(res1);
             }
         );
     });
-    /*
-    try {
-        let matched_laundryRoom = null;
-        let laundryRooms = await LaundryRoom.find({}).exec();
-        for (let laundryRoom of laundryRooms){
-            for(let machine_id of laundryRoom.machines){
-                console.log(machine_id);
-                if(machine_id == req.params.id){
-                    matched_laundryRoom = laundryRoom;
-                    matched_laundryRoom.machines
-                    console.log('Room is matched');
-                }
-            }
-        }
-        let removed = await Machine.findByIdAndDelete(req.params.id);
-
-        return res.status(200).send(removed);
-
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({
-            error: "Internal server error",
-            message: err.message,
-        });
-    }
-            */
 };
 
 
