@@ -3,7 +3,7 @@
  */
 const {Rental} = require("../models/rental")
 const {Feedback} = require("../models/rental");
-var feedback_helpers = require("./feedback");
+var feedback_helpers = require("./feedback"); // bu lazim mi? -Talha
 
 
 const list = async (req, res) => {
