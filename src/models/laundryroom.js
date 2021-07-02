@@ -35,7 +35,7 @@ const MachineSchema = new mongoose.Schema({
     },
     isEnabled: {
         type: Boolean,
-        default: false
+        default: true
     },
     operationCount: {
         type: Number,
@@ -88,11 +88,10 @@ const LaundryRoomSchema = new mongoose.Schema({
         max: 24,
         default: 24
     },
-    machines: [{MachineSchema}],
-    announcements: [AnnouncementSchema]
+    machines: [{type: mongoose.Schema.Types.ObjectId, ref: "Machine"}],
+    announcements: {type: mongoose.Schema.Types.ObjectId, ref: "Announcement"},
 });
 
-// module.exports = mongoose.model("ResidentialArea", ResidentialAreaSchema);
 const LaundryRoomModel = mongoose.model("LaundryRoom", LaundryRoomSchema);
 const AnnouncementModel = mongoose.model("Announcement", AnnouncementSchema);
 const MachineModel = mongoose.model("Machine", MachineSchema);
