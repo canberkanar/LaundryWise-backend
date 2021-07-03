@@ -25,7 +25,7 @@ api.use(middlewares.allowCrossDomain);
 // Basic route
 api.get('/', (req, res) => {
     res.json({
-        name: 'Welcome to LaundryWise'
+        name: 'Welcome to LaundryWise backend service!'
     });
 });
 

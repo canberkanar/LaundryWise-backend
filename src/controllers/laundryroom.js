@@ -17,7 +17,10 @@ const list = async (req, res) => {
 
 const read = async (req, res) => {
     try {
-        let laundryRoom = await LaundryRoom.findById(req.params.id).exec();
+        let laundryRoom = await LaundryRoom.findById(req.params.id).populate({
+            path: 'machines',
+            populate: {path: 'timeslots'}
+        }).exec();
 
         if (!laundryRoom)
             return res.status(404).json({
