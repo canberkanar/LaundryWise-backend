@@ -17,7 +17,44 @@ const list = async (req, res) => {
 
 const read = async (req, res) => {
     try {
-        let laundryRoom = await LaundryRoom.findById(req.params.id).exec();
+        let matcher = new Object();
+        let timeSlotQuery = new Object();
+        timeSlotQuery.path = 'timeslots';
+
+        let filteringQuery = new Object();
+        filteringQuery.path = 'machines';
+        filteringQuery.match = new Object();
+        filteringQuery.populate = new Object();
+
+        if (req.query.machineType && (!"washer".localeCompare(req.query.machineType) || !"dryer".localeCompare(req.query.machineType))) {
+            matcher.machineType = req.query.machineType
+            filteringQuery.match = matcher;
+        }
+
+        if (req.query.beginningDateToPullReservations) {
+            let dateComparator = new Object();
+            let filteringStartDate = new Date(req.query.beginningDateToPullReservations);
+            filteringStartDate.setHours(0, 0, 0, 0);
+            dateComparator.$gte = new Date(filteringStartDate); // dates after
+            // dateComparator.$lt = new Date("2021-07-09T03:00:00.000+00:00"); // dates before
+            timeSlotQuery.match = new Object();
+            timeSlotQuery.match.date = dateComparator;
+        }
+
+        filteringQuery.populate = timeSlotQuery;
+
+
+        let laundryRoom = await LaundryRoom.findById(req.query.id).populate(filteringQuery).exec();
+
+        // let laundryRoom = await LaundryRoom.findById(req.query.id).populate({
+        //         path: 'machines',
+        //         populate: {
+        //             path: 'timeslots', match: {
+        //                 date: new Date("2021-07-02T21:00:00.000Z")
+        //             }
+        //         }
+        //     }
+        // ).exec();
 
         if (!laundryRoom)
             return res.status(404).json({
@@ -132,7 +169,7 @@ const updateWorkingHours = async (req, res) => {
 
         // Update individual machine slot availabilities
         for (let machine of laundryRoom.machines) {
-            for (let timeslot of  machine.timeslots) {
+            for (let timeslot of machine.timeslots) {
                 if (laundryRoomOperationStartTime <= timeslot.startTime &&
                     laundryRoomOperationEndTime >= timeslot.endTime) {
                     timeslot.status = "available";
