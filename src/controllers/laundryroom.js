@@ -17,12 +17,6 @@ const list = async (req, res) => {
 
 const read = async (req, res) => {
     try {
-        let myType = "*";
-
-        if (req.body.machineType) {
-            myType = req.body.machineType;
-        }
-
         let matcher = new Object();
         let timeSlotQuery = new Object();
         timeSlotQuery.path = 'timeslots';
@@ -32,27 +26,27 @@ const read = async (req, res) => {
         filteringQuery.match = new Object();
         filteringQuery.populate = new Object();
 
-        if (req.body.machineType && (!"washer".localeCompare(req.body.machineType) || !"dryer".localeCompare(req.body.machineType))) {
-            matcher.machineType = req.body.machineType
+        if (req.query.machineType && (!"washer".localeCompare(req.query.machineType) || !"dryer".localeCompare(req.query.machineType))) {
+            matcher.machineType = req.query.machineType
             filteringQuery.match = matcher;
         }
 
-        if (req.body.beginningDateToPullReservations) {
-            // let dateComparator = new Object();
-            // dateComparator.$gte = new Date("2021-07-01T03:00:00.000+00:00");
-            // dateComparator.$lt = new Date("2021-07-09T03:00:00.000+00:00");
+        if (req.query.beginningDateToPullReservations) {
             let dateComparator = new Object();
+            let filteringStartDate = new Date(req.query.beginningDateToPullReservations);
+            filteringStartDate.setHours(0, 0, 0, 0);
+            dateComparator.$gte = new Date(filteringStartDate); // dates after
+            // dateComparator.$lt = new Date("2021-07-09T03:00:00.000+00:00"); // dates before
             timeSlotQuery.match = new Object();
-            timeSlotQuery.match.date = new Date(req.body.beginningDateToPullReservations);
+            timeSlotQuery.match.date = dateComparator;
         }
 
         filteringQuery.populate = timeSlotQuery;
 
 
-        let laundryRoom = await LaundryRoom.findById(req.params.id).populate(filteringQuery
-        ).exec();
+        let laundryRoom = await LaundryRoom.findById(req.query.id).populate(filteringQuery).exec();
 
-        // let laundryRoom = await LaundryRoom.findById(req.params.id).populate({
+        // let laundryRoom = await LaundryRoom.findById(req.query.id).populate({
         //         path: 'machines',
         //         populate: {
         //             path: 'timeslots', match: {
