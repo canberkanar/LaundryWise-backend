@@ -67,16 +67,17 @@ const create = async (req, res) => {
     }
 };
 
-// removes a payment entry from DB and deletes the reference from Rental
+
+// removes a payment entry from DB
 const remove = async (req, res) => {
     try {
-        let removed = await Machine.findByIdAndDelete(req.params.id);
+        let removed = await Payment.findByIdAndDelete(req.params.id);
         return res.status(200).send(removed);
 
     } catch (err) {
         console.log(err);
         return res.status(500).json({
-            error: "Internal server error",
+            error: "Internal server error - Payment Delete",
             message: err.message,
         });
     }
