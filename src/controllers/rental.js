@@ -1,8 +1,6 @@
-/**
- * @author canberk.anar
- */
 const {Rental, Feedback, Payment} = require("../models/rental")
-var feedback_helpers = require("./feedback"); // bu lazim mi? -Talha
+const {Machine, TimeSlot} = require("../models/laundryroom")
+var FeedbackController = require("./feedback"); // bu lazim mi? -Talha
 
 
 // Fetches all the entals in DB
@@ -32,21 +30,22 @@ const create = async (req, res) => {
 
     // handle the request
     try {
-        let payment = await Payment.create(req.body);
-        let rental = await Rental.create(req.body);
-        let added_payment = await Rental.findOneAndUpdate({
-                _id: rental._id
-            },
-            { 
-                $set: { 
-                    payment: payment 
-                } 
-            },
-            {
-                new: true
-            }
-        );
+        // let feedback = await FeedbackController.create({});
+        let machine = await Machine.findById(req.body.machine_id).exec();
+        let timeSlot = await TimeSlot.findById(req.body.allocated_time_id).exec();
 
+        payment_req = {
+            cost: machine.price,
+            isPaid: true
+        }
+        let payment = await Payment.create(payment_req);
+
+        rental_req = {
+            machine: machine._id,
+            allocatedTime: timeSlot._id,
+            payment: payment._id,
+        }
+        let rental = await Rental.create(rental_req);
         return res.status(201).json(rental);
     } catch (err) {
         console.log(err);

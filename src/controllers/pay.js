@@ -35,28 +35,14 @@ const get = async (req, res) => {
 // creates a new Payment and attaches it to an existing Rental
 const create = async (req, res) => {
                
-    if (Object.keys(req.body).length === 0)
-        return res.status(400).json({
-            error: "Bad Request",
-            message: "The request body is empty",
-    });
+    // if (Object.keys(req.body).length === 0)
+    //     return res.status(400).json({
+    //         error: "Bad Request",
+    //         message: "The request body is empty",
+    // });
 
     try {
         let payment = await Payment.create(req.body);
-
-        let added_payment = await Rental.findOneAndUpdate({
-                _id: req.body.rentalId
-            },
-            { 
-                $set: { 
-                    payment: payment 
-                } 
-            },
-            {
-                new: true
-            }
-        );
-
         return res.status(201).json(added_payment);
     } catch (err) {
         console.log(err);

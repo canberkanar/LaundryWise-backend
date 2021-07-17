@@ -38,10 +38,10 @@ const PaymentSchema = new mongoose.Schema({
 })
 
 const RentalSchema = new mongoose.Schema({
-    machine: MachineSchema,
-    allocated_time: AllocatedTimeSchema,
-    payment: PaymentSchema,
-    feedback: FeedbackSchema,
+    machine: {type: mongoose.Schema.Types.ObjectId, ref: "Machine"},
+    allocatedTime: {type: mongoose.Schema.Types.ObjectId, ref: "TimeSlot"},
+    payment: {type: mongoose.Schema.Types.ObjectId, ref: "Payment"},
+    feedback: {type: mongoose.Schema.Types.ObjectId, ref: "Feedback"},
 });
 
 const FeedbackModel = mongoose.model("Feedback", FeedbackSchema);
