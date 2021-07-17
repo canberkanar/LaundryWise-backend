@@ -1,6 +1,7 @@
 const {Rental, Feedback, Payment} = require("../models/rental")
 const {Machine, TimeSlot} = require("../models/laundryroom")
 var FeedbackController = require("./feedback"); // bu lazim mi? -Talha
+var MachineController = require("./machine");
 
 
 // Fetches all the entals in DB
@@ -31,21 +32,29 @@ const create = async (req, res) => {
     // handle the request
     try {
         // let feedback = await FeedbackController.create({});
+        // Fetch machine and timeslot
         let machine = await Machine.findById(req.body.machine_id).exec();
         let timeSlot = await TimeSlot.findById(req.body.allocated_time_id).exec();
 
+        // Create payment
         payment_req = {
             cost: machine.price,
             isPaid: true
         }
         let payment = await Payment.create(payment_req);
 
+        // Create rental
         rental_req = {
             machine: machine._id,
             allocatedTime: timeSlot._id,
             payment: payment._id,
         }
         let rental = await Rental.create(rental_req);
+
+        // Update timeslot status
+        timeSlot.status = "occupied";
+        await timeSlot.save()
+
         return res.status(201).json(rental);
     } catch (err) {
         console.log(err);
@@ -71,36 +80,21 @@ const get = async (req, res) => {
     }
 };
 
-
-// Updates an existing Rental
-const update = async (req, res) => {
-    try {
-
-        let filter = {_id: req.params.id};
-        let updated_rental = req.body;
-        let updated_version = await Rental.findOneAndUpdate(
-            filter, 
-            updated_rental, 
-            {
-                new: true
-            }
-        );
-        return res.status(200).send(updated_version);
-
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({
-            error: "Internal server error - Update Rental",
-            message: err.message,
-        });
-    }
-};
-
+// Remove rental
 const remove = async (req, res) => {
     try {
         let rental = await Rental.findById(req.params.id).exec();
+        let timeSlot = await TimeSlot.findByIdAndUpdate(rental.allocatedTime, 
+            { 
+                $set: { 
+                    status: 'available' 
+                }
+            }
+        )
         let removed_payment = await Payment.findByIdAndDelete(rental.payment)
         let removed = await Rental.findByIdAndDelete(req.params.id);
+        
+        // Add email service here
         return res.status(200).send(removed);
 
     } catch (err) {
@@ -141,7 +135,6 @@ module.exports = {
     list,
     create,
     get,
-    update,
     remove,
     give_feedback_to_rental
 };
