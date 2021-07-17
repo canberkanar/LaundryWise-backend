@@ -4,6 +4,9 @@ const http = require('http');
 const mongoose = require('mongoose');
 const api = require('./src/api');
 const config = require('./src/config');
+const setTZ = require('set-tz')
+
+setTZ('UTC')
 
 
 // Set the port to the API.
