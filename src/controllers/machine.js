@@ -1,6 +1,6 @@
 const {Machine, LaundryRoom, TimeSlot} = require("../models/laundryroom");
 
-const numberOfDaysToGenerate = 1;
+const numberOfDaysToGenerate = 30;
 
 const list = async (req, res) => {
     try {
@@ -77,24 +77,31 @@ const create = async (req, res) => {
             newEnd.setHours(0, 0, 0, 0);
 
             for (i = 0; i < numberOfDaysToGenerate; i++) {
-                for (j = 0; j < roomOperationEndHour - roomOperationStartHour - 1; j++) {
+                for (j = 0; j < 24; j++) {
 
-                    newStart.setHours(roomOperationStartHour + j)
-                    newEnd.setHours(roomOperationStartHour + 1 + j)
+                    newStart.setHours(j)
+                    newEnd.setHours(1 + j)
+
+                    let newStatus = "outOfService";
+                    if (j >= roomOperationStartHour && j < roomOperationEndHour) {
+                        newStatus = "available";
+                    }
 
                     let slot = {
                         date: new Date(today),
                         startTime: new Date(newStart),
-                        endTime: new Date(newEnd)
+                        endTime: new Date(newEnd),
+                        status: newStatus
                     };
+
                     let pushedTimeSlot;
                     pushedTimeSlot = await TimeSlot.create(slot);
                     timeslots.push(pushedTimeSlot); // new object creation is needed since values are overwritten due to pass by reference
                 }
 
                 today.setDate(today.getDate() + 1);
-                newStart.setDate(newStart.getDate() + 1);
-                newEnd.setDate(newStart.getDate())
+                newStart.setDate(today.getDate() );
+                newEnd.setDate(today.getDate())
             }
 
             req.body.timeslots = timeslots; // merge created timeslots with create machine request
@@ -158,17 +165,23 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-    try {
-        let removed = await Machine.findByIdAndDelete(req.params.id);
-        return res.status(200).send(removed);
+    let m = await Machine.findById(req.params.id).exec();
+    for (let ts of m.timeslots) {
+        let removed_ts = await TimeSlot.findByIdAndDelete(ts);
 
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({
-            error: "Internal server error",
-            message: err.message,
-        });
     }
+
+    let removed = await Machine.findOneAndRemove({_id: req.params.id}, function (err, response) {
+        if (err) throw err;
+        LaundryRoom.update(
+            {"machines": req.params.id},
+            {"$pull": {"machines": req.params.id}},
+            async function (err, res1) {
+                if (err) throw err;
+                res.json(res1);
+            }
+        );
+    });
 };
 
 
@@ -214,15 +227,15 @@ async function updateMachineTimeSlot(timeSlotId, newStatus) {
 }
 
 const enable_disable_machines_time_slots = async (req, res) => {
-    let machine= await Machine.findById(req.params.id).populate({
+    let machine = await Machine.findById(req.params.id).populate({
         path: 'timeslots'
     }).exec();
     let matched_laundryRoom = null;
     let laundryRooms = await LaundryRoom.find({}).exec();
-    for (let laundryRoom of laundryRooms){
-        for(let machine_id of laundryRoom.machines){
+    for (let laundryRoom of laundryRooms) {
+        for (let machine_id of laundryRoom.machines) {
             console.log(machine_id);
-            if(machine_id == req.params.id){
+            if (machine_id == req.params.id) {
                 matched_laundryRoom = laundryRoom;
                 console.log('Room is matched');
             }
@@ -237,7 +250,7 @@ const enable_disable_machines_time_slots = async (req, res) => {
 
     laundryRoomOperationStartTime.setHours(room_operation_start_time);
     laundryRoomOperationEndTime.setHours(room_operation_end_time);
-    if(req.body.operation === "disable"){
+    if (req.body.operation === "disable") {
         machine.isEnabled = false;
         machine.save();
         //console.log(timeslot.status);
@@ -248,21 +261,21 @@ const enable_disable_machines_time_slots = async (req, res) => {
     }*/
 
 
-    for (let timeslot of machine.timeslots){
-        if(req.body.operation === "disable"){
+    for (let timeslot of machine.timeslots) {
+        if (req.body.operation === "disable") {
             console.log("Before " + timeslot.status);
             timeslot.status = "outOfService";
             timeslot.save();
-            console.log("After "+ timeslot.status);
-        }else if(laundryRoomOperationStartTime <= timeslot.startTime &&
-            laundryRoomOperationEndTime >= timeslot.endTime && req.body.operation === "enable"){ // enable
+            console.log("After " + timeslot.status);
+        } else if (laundryRoomOperationStartTime <= timeslot.startTime &&
+            laundryRoomOperationEndTime >= timeslot.endTime && req.body.operation === "enable") { // enable
             machine.isEnabled = true;
             machine.save();
             console.log("Timeslot id " + timeslot._id)
             console.log("Before " + timeslot.status);
             timeslot.status = "available";
             timeslot.save();
-            console.log("After "+ timeslot.status);
+            console.log("After " + timeslot.status);
         }
 
     }
@@ -270,7 +283,7 @@ const enable_disable_machines_time_slots = async (req, res) => {
     //console.log("sa");
     return res
         .status(200)
-        .json({ message: `Enable Disable is Done` });
+        .json({message: `Enable Disable is Done`});
 };
 module.exports = {
     list,

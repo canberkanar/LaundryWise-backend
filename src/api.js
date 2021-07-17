@@ -13,6 +13,7 @@ const machine = require('./routes/machine')
 const feedback = require('./routes/feedback')
 const rental = require('./routes/rental')
 const statistics = require('./routes/statistics')
+const announcement = require('./routes/announcement')
 const api = express();
 
 // Adding Basic Middlewares
@@ -25,7 +26,7 @@ api.use(middlewares.allowCrossDomain);
 // Basic route
 api.get('/', (req, res) => {
     res.json({
-        name: 'Welcome to LaundryWise'
+        name: 'Welcome to LaundryWise backend service!'
     });
 });
 
@@ -37,4 +38,5 @@ api.use('/machine', machine)
 api.use('/feedback',feedback)
 api.use('/rental', rental)
 api.use('/statistics', statistics)
+api.use('/announcement', announcement)
 module.exports = api;
