@@ -30,10 +30,12 @@ const UserSchema = new mongoose.Schema({
     balance: {
         type: Number,
     },
+    laundrywiseCode: {
+        type: String
+    },
     laundryRooms: [
         {type: mongoose.Schema.Types.ObjectId, ref: "LaundryRoom"}
     ],
-    registeredLaundryRoom: {type: mongoose.Schema.Types.ObjectId, ref: "LaundryRoom"},
 
     // role of the user, used for rights management
     role: {
