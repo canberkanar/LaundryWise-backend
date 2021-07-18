@@ -35,11 +35,11 @@ const get = async (req, res) => {
 
 const create = async (req, res) => {
     // check if the body of the request contains all necessary properties
-    if (Object.keys(req.body).length === 0)
-        return res.status(400).json({
-            error: "Bad Request",
-            message: "The request body is empty",
-        });
+    // if (Object.keys(req.body).length === 0)
+    //     return res.status(400).json({
+    //         error: "Bad Request",
+    //         message: "The request body is empty",
+    //     });
 
     // handle the request
     try {
@@ -51,7 +51,7 @@ const create = async (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(500).json({
-            error: "Internal server error",
+            error: "Internal server error - Create Feedback",
             message: err.message,
         });
     }

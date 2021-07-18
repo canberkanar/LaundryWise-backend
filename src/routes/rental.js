@@ -1,7 +1,3 @@
-/**
- * @author canberk.anar
- */
-
 "use strict";
 
 const express = require("express");
@@ -15,8 +11,10 @@ const RentalController = require("../controllers/rental")
 // router.put("/:id", middlewares.checkAuthentication, RentalController.give_feedback_to_rental);
 
 
-router.get("/", RentalController.list);
+router.get("/all", RentalController.list);
 router.post("/", RentalController.create);
+router.get("/:id", RentalController.get);
+router.delete("/:id", RentalController.remove);
 router.put("/:id", RentalController.give_feedback_to_rental);
 
 
