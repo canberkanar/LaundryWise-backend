@@ -4,6 +4,7 @@ const list = async (req, res) => {
     try {
 
         let rentals = await Rental.find({ serviceProvider: req.body.serviceProvider }).exec();
+        let payments = rentals.map(r => r.payment);
 
         // rentals.filter(r => r.machine === machine_list).map(r => r.payment)
 
@@ -13,7 +14,7 @@ const list = async (req, res) => {
         // })
 
         // return total revenue
-        return res.status(200).json(rentals);
+        return res.status(200).json(payments);
     } catch (err) {
         console.log(err);
         return res.status(500).json({
