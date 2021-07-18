@@ -7,12 +7,13 @@ const list = async (req, res) => {
         // get all rentals
         let rentals = await Rental.find({}).exec();
 
-        rentals.filter(r => r.machine === machine_list).map(r => r.product_url)
+        // rentals.filter(r => r.machine === machine_list).map(r => r.payment)
 
-        let total_revenue = 0;
-        rentals.forEach(obj => {
-            total_revenue += obj.payment.cost;
-        })
+
+        let total_revenue = rentals.filter(r => r.machine === machine_list).map(r => r.payment);
+        // rentals.forEach(obj => {
+        //     total_revenue += obj.payment.cost;
+        // })
 
         // return total revenue
         return res.status(200).json(total_revenue);
