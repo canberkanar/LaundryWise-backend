@@ -11,7 +11,8 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     email: {
-        type: String
+        type: String,
+        required: true
     },
     address: {
         type: String,
@@ -25,10 +26,14 @@ const UserSchema = new mongoose.Schema({
     taxNumber: {
         type: Number,
     },
+    // bunu sil
     balance: {
         type: Number,
     },
-
+    laundryRooms: [
+        {type: mongoose.Schema.Types.ObjectId, ref: "LaundryRoom"}
+    ],
+    registeredLaundryRoom: {type: mongoose.Schema.Types.ObjectId, ref: "LaundryRoom"},
 
     // role of the user, used for rights management
     role: {

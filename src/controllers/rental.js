@@ -48,8 +48,8 @@ const create = async (req, res) => {
             machine: machine._id,
             allocatedTime: timeSlot._id,
             payment: payment._id,
-            // customer: req.body.customer_id,
-            // serviceProvider: req.body.service_provider_id
+            customer: req.body.customer_id,
+            serviceProvider: req.body.service_provider_id
         }
         let rental = await Rental.create(rental_req);
 
