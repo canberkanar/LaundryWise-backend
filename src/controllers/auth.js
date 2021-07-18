@@ -71,6 +71,11 @@ const register = async (req, res) => {
 
     // handle the request
     try {
+        if (req.body.role === "serviceProvider")
+            var laundrywiseCode = makeid(5);
+        else if (req.body.role === "customer")
+            var laundrywiseCode = req.body.laundrywiseCode;
+
         // hash the password before storing it in the database
         const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
@@ -82,7 +87,7 @@ const register = async (req, res) => {
             password: hashedPassword,
             mobileNumber: req.body.mobileNumber,
             role: req.body.role,
-            registeredLaundryRoom: req.body.registeredLaundryRoom
+            laundrywiseCode: laundrywiseCode,
         };
 
         // create the user in the database
@@ -146,6 +151,17 @@ const me = async (req, res) => {
 const logout = (req, res) => {
     res.status(200).send({ token: null });
 };
+
+
+function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
 
 module.exports = {
     login,
