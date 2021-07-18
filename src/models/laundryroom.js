@@ -71,7 +71,7 @@ const LaundryRoomSchema = new mongoose.Schema({
     },
     isActive: {
         type: Boolean,
-        required: true
+        default: true
     },
     address: {
         type: String
@@ -79,14 +79,14 @@ const LaundryRoomSchema = new mongoose.Schema({
     operationStartHour: {
         type: Number,
         min: 0,
-        max: 24,
-        default: 6
+        max: 24, 
+        required: true
     },
     operationEndHour: {
         type: Number,
         min: 0,
         max: 24,
-        default: 24
+        required: true
     },
     machines: [{type: mongoose.Schema.Types.ObjectId, ref: "Machine"}],
     announcements: {type: mongoose.Schema.Types.ObjectId, ref: "Announcement"},
