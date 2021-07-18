@@ -1,4 +1,7 @@
 const {LaundryRoom} = require("../models/laundryroom");
+const User = require("../models/user");
+var UserController = require("./auth.js");
+
 
 const list = async (req, res) => {
     try {
@@ -82,15 +85,28 @@ const create = async (req, res) => {
 
     // handle the request
     try {
-        // create movie in database
-        let laundryRoom = await LaundryRoom.create(req.body);
-
-        // return created movie
-        return res.status(201).json(laundryRoom);
+        req_laundryRoom = {
+            name: req.body.name,
+            address: req.body.address,
+            operationStartHour: req.body.operationStartHour,
+            operationEndHour: req.body.operationEndHour
+        }
+        let newLaundryRoom = await LaundryRoom.create(req_laundryRoom);
+        let serviceProvider = await User.findOneAndUpdate(
+            {
+                _id: req.body.serviceProviderId
+            },
+            {
+                $push: {
+                    laundryRooms: newLaundryRoom
+                }
+            }
+        );
+        return res.status(201).json(newLaundryRoom);
     } catch (err) {
         console.log(err);
         return res.status(500).json({
-            error: "Internal server error",
+            error: "Internal server error - Laundry Create",
             message: err.message,
         });
     }
