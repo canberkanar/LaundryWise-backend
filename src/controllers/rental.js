@@ -4,7 +4,7 @@ var FeedbackController = require("./feedback"); // bu lazim mi? -Talha
 var MachineController = require("./machine");
 
 
-// Fetches all the entals in DB
+// Fetches all the rentals in DB
 const list = async (req, res) => {
     try {
         let rentals = await Rental.find({}).exec();
