@@ -110,6 +110,7 @@ const register = async (req, res) => {
         // return generated token
         res.status(200).json({
             token: token,
+            _id: retUser._id
         });
     } catch (err) {
         if (err.code == 11000) {
