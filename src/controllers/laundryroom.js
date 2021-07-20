@@ -18,6 +18,21 @@ const list = async (req, res) => {
     }
 };
 
+const get = async (req, res) => {
+    try {
+        console.log(req.body.id)
+        let m = await LaundryRoom.findById(req.body.id).exec();
+        // return gotten movies
+        return res.status(200).json(m);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            error: "Internal server error",
+            message: err.message,
+        });
+    }
+};
+
 const read = async (req, res) => {
     try {
         let matcher = new Object();
@@ -212,6 +227,7 @@ const updateWorkingHours = async (req, res) => {
 
 module.exports = {
     list,
+    get,
     read,
     create,
     update,
