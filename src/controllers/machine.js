@@ -21,8 +21,8 @@ const list = async (req, res) => {
 
 const get = async (req, res) => {
     try {
-        console.log(req.body.id)
-        let m = await Machine.findById(req.body.id).exec();
+        console.log(req.params.id)
+        let m = await Machine.findById(req.params.id).exec();
         // return gotten movies
         return res.status(200).json(m);
     } catch (err) {

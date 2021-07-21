@@ -18,6 +18,22 @@ const list = async (req, res) => {
     }
 };
 
+const getMachinesInRoom = async (req, res) => {
+    try {
+        console.log(req.body.id)
+        let laundryroom = await LaundryRoom.findById(req.body.id).exec();
+        console.log(laundryroom.machines);
+        // return gotten movies
+        return res.status(200).json(laundryroom);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            error: "Internal server error",
+            message: err.message,
+        });
+    }
+};
+
 const get = async (req, res) => {
     try {
         console.log(req.body.id)
