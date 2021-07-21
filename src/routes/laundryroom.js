@@ -18,7 +18,7 @@ const LaundryController = require("../controllers/laundryroom")
 
 router.put("/updateWorkingHours/", LaundryController.updateWorkingHours);
 router.get("/get", LaundryController.get);
-router.get("/machinesInRoom/:id", LaundryController.getMachinesInRoom);
+router.get("/machinesInRoom/", LaundryController.getMachinesInRoom);
 router.get("/", LaundryController.list);
 router.get("/filter", LaundryController.read);
 router.put("/:id", LaundryController.update);
