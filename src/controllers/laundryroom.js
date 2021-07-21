@@ -20,8 +20,8 @@ const list = async (req, res) => {
 
 const getMachinesInRoom = async (req, res) => {
     try {
-        console.log(req.body.id)
-        let laundryroom = await LaundryRoom.findById(req.body.id).exec();
+        console.log(req.params.id)
+        let laundryroom = await LaundryRoom.findById(req.params.id).exec();
         console.log(laundryroom.machines);
         // return gotten movies
         return res.status(200).json(laundryroom);
@@ -248,5 +248,6 @@ module.exports = {
     create,
     update,
     remove,
-    updateWorkingHours
+    updateWorkingHours,
+    getMachinesInRoom
 };
