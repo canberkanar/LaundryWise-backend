@@ -17,14 +17,14 @@ const list = async (req, res) => {
 };
 
 // Give the laundryRoomId as req.body
-const listInRoom = async (req, res) => {
+const getAnnouncement = async (req, res) => {
     try {
         console.log(req.query.id)
         let room = await LaundryRoom.findById(req.body.laundryRoomId).exec();
-        let announcements_list = room.announcements;
+        let announcement = room.announcements;
         console.log("Getting all announcements of the room.");
         let announcements = []
-        for(let a_id of announcements_list){
+        for(let a_id of announcement){
             let m = await Announcement.findById(a_id).exec();
             announcements.push(m);
         }
@@ -96,7 +96,7 @@ const create = async (req, res) => {
         let ann = await Announcement.create(data);
         let added_laundryroom = await LaundryRoom.findOneAndUpdate(
             {_id: req.body.laundryRoomId},
-            {$push: {announcements: ann}});
+            {announcements: ann});
 
         console.log("ADDED ANNOUNCEMENT TO LAUNDRY ROOM");
         console.log(added_laundryroom);
@@ -166,7 +166,7 @@ const remove = async (req, res) => {
 
 module.exports = {
     list,
-    listInRoom,
+    getAnnouncement,
     read,
     create,
     update,
