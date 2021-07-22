@@ -1,5 +1,5 @@
-const {LaundryRoom} = require("../models/laundryroom");
-const {Announcement} = require("../models/laundryroom");
+const {LaundryRoom, Announcement} = require("../models/laundryroom");
+
 
 const list = async (req, res) => {
     try {
@@ -9,27 +9,21 @@ const list = async (req, res) => {
         return res.status(200).json(announcements);
     } catch (err) {
         console.log(err);
-        return res.status(500).json({
-            error: "Internal server error",
-            message: err.message,
-        });
+        return res.status(500).json(
+            {
+                error: "Internal server error",
+                message: err.message,
+            }
+        );
     }
 };
 
 // Give the laundryRoomId as req.body
 const getAnnouncement = async (req, res) => {
     try {
-        console.log(req.query.id)
         let room = await LaundryRoom.findById(req.body.laundryRoomId).exec();
-        let announcement = room.announcements;
-        console.log("Getting all announcements of the room.");
-        let announcements = []
-        for(let a_id of announcement){
-            let m = await Announcement.findById(a_id).exec();
-            announcements.push(m);
-        }
-
-        return res.status(200).json(announcements);
+        let announcement = await Announcement.findById(room.announcements).exec();
+        return res.status(200).json(announcement);
     } catch (err) {
         console.log(err);
         return res.status(500).json({
