@@ -79,8 +79,8 @@ const create = async (req, res) => {
             for (i = 0; i < numberOfDaysToGenerate; i++) {
                 for (j = 0; j < 24; j++) {
 
-                    newStart.setHours(j)
-                    newEnd.setHours(1 + j)
+                    newStart.setHours(j);
+                    newEnd.setHours(j, 59);
 
                     let newStatus = "outOfService";
                     if (j >= roomOperationStartHour && j < roomOperationEndHour) {
@@ -99,9 +99,9 @@ const create = async (req, res) => {
                     timeslots.push(pushedTimeSlot); // new object creation is needed since values are overwritten due to pass by reference
                 }
 
-                today.setDate(today.getDate() + 1);
-                newStart.setDate(today.getDate() );
-                newEnd.setDate(today.getDate())
+                today.setTime(today.getTime() + (24 * 60 * 60 * 1000));
+                newStart.setTime(today.getTime() );
+                newEnd.setTime(today.getTime())
             }
 
             req.body.timeslots = timeslots; // merge created timeslots with create machine request
