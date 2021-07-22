@@ -127,24 +127,33 @@ const create = async (req, res) => {
 
     // handle the request
     try {
-        req_laundryRoom = {
+        reqLaundryRoom = {
             name: req.body.name,
             address: req.body.address,
             operationStartHour: req.body.operationStartHour,
             operationEndHour: req.body.operationEndHour
         }
-        let newLaundryRoom = await LaundryRoom.create(req_laundryRoom);
+        let newLaundryRoom = await LaundryRoom.create(reqLaundryRoom);
+        let reqAnnouncement = {
+            "title": "   ",
+            "body": "   "
+        }
+        let announcement = await Announcement.create(reqAnnouncement);
+        let finalLaundryRoom = await LaundryRoom.findOneAndUpdate(
+            {newLaundryRoom},
+            {announcements: announcement});
         let serviceProvider = await User.findOneAndUpdate(
             {
                 _id: req.body.serviceProviderId
             },
             {
                 $push: {
-                    laundryRooms: newLaundryRoom
+                    laundryRooms: finalLaundryRoom
                 }
             }
         );
-        return res.status(201).json(newLaundryRoom);
+        
+        return res.status(201).json(finalLaundryRoom);
     } catch (err) {
         console.log(err);
         return res.status(500).json({

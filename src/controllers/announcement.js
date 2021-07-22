@@ -41,7 +41,7 @@ const getAnnouncement = async (req, res) => {
 
 const read = async (req, res) => {
     try {
-        let announcement = await Announcement.findById(req.params.id).exec();
+        let announcement = await Announcement.findById(req.body.id).exec();
 
         if (!announcement)
             return res.status(404).json({
