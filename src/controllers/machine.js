@@ -117,16 +117,10 @@ const create = async (req, res) => {
 
         // create movie in database
         let m = await Machine.create(req.body);
-        //const xx = req.body.deviceRoomId;
         let added_machine = await LaundryRoom.findOneAndUpdate(
             {_id: req.body.deviceRoomId},
             {$push: {machines: m}});
 
-        console.log(added_machine);
-
-        //LaundryRoom.updateOne({"id": req.body.deviceRoomId},)
-        // handle the request
-        // create machine in database
         return res.status(201).json(m);
 
     } catch
@@ -144,15 +138,11 @@ const create = async (req, res) => {
 const update = async (req, res) => {
     try {
 
-        let filter = {_id: req.params.id};
+        let filter = {_id: req.body.id};
         let updated_machine = req.body;
         let updated_version = await Machine.findOneAndUpdate(filter, updated_machine, {
             new: true
         });
-        // Feedback.findOneAndUpdate({id:req.body.id}, req.body, function (err) {
-
-        //   res.send(req.body);
-        //});
         return res.status(200).send(updated_version);
 
     } catch (err) {
