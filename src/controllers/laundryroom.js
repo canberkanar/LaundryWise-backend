@@ -23,20 +23,18 @@ const getMachinesInRoom = async (req, res) => {
         console.log(req.query.id)
         let laundryroom = await LaundryRoom.findById(req.query.id).exec();
         let machines = []
-        console.log("input machine type " + req.query.machineType )
+        //console.log("input machine type " + req.query.machineType )
         for(let m_id of laundryroom.machines){
             let m = await Machine.findById(m_id).exec();
-            //console.log("machine type " + m.machineType);
-
-            /*if(m.machineType.localeCompare(req.query.machineType)){
-                console.log("girdim");
+            //console.log("res " + m.machineType.localeCompare(req.query.machineType))
+            if(!m.machineType.localeCompare(req.query.machineType)){
+                //console.log("in " + m.machineType);
                 machines.push(m);
-            }*/
-            machines.push(m);
+            }
+
+
         }
-        //console.log(laundryroom.machines);
-        //console.log(machines)
-        // return gotten movies
+
         return res.status(200).json(machines);
     } catch (err) {
         console.log(err);
