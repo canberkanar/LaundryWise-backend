@@ -7,7 +7,7 @@ const middlewares = require("../middlewares");
 const StatisticsController = require("../controllers/statistics")
 
 
-router.get("/", StatisticsController.list);
+router.get("/", StatisticsController.getStatistics);
 
 
 module.exports = router;
