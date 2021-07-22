@@ -1,5 +1,5 @@
-const {LaundryRoom} = require("../models/laundryroom");
-const {Announcement} = require("../models/laundryroom");
+const {LaundryRoom, Announcement} = require("../models/laundryroom");
+
 
 const list = async (req, res) => {
     try {
@@ -9,27 +9,21 @@ const list = async (req, res) => {
         return res.status(200).json(announcements);
     } catch (err) {
         console.log(err);
-        return res.status(500).json({
-            error: "Internal server error",
-            message: err.message,
-        });
+        return res.status(500).json(
+            {
+                error: "Internal server error",
+                message: err.message,
+            }
+        );
     }
 };
 
 // Give the laundryRoomId as req.body
-const listInRoom = async (req, res) => {
+const getAnnouncement = async (req, res) => {
     try {
-        console.log(req.query.id)
         let room = await LaundryRoom.findById(req.body.laundryRoomId).exec();
-        let announcements_list = room.announcements;
-        console.log("Getting all announcements of the room.");
-        let announcements = []
-        for(let a_id of announcements_list){
-            let m = await Announcement.findById(a_id).exec();
-            announcements.push(m);
-        }
-
-        return res.status(200).json(announcements);
+        let announcement = await Announcement.findById(room.announcements).exec();
+        return res.status(200).json(announcement);
     } catch (err) {
         console.log(err);
         return res.status(500).json({
@@ -41,7 +35,7 @@ const listInRoom = async (req, res) => {
 
 const read = async (req, res) => {
     try {
-        let announcement = await Announcement.findById(req.params.id).exec();
+        let announcement = await Announcement.findById(req.body.id).exec();
 
         if (!announcement)
             return res.status(404).json({
@@ -96,7 +90,7 @@ const create = async (req, res) => {
         let ann = await Announcement.create(data);
         let added_laundryroom = await LaundryRoom.findOneAndUpdate(
             {_id: req.body.laundryRoomId},
-            {$push: {announcements: ann}});
+            {announcements: ann});
 
         console.log("ADDED ANNOUNCEMENT TO LAUNDRY ROOM");
         console.log(added_laundryroom);
@@ -166,7 +160,7 @@ const remove = async (req, res) => {
 
 module.exports = {
     list,
-    listInRoom,
+    getAnnouncement,
     read,
     create,
     update,
