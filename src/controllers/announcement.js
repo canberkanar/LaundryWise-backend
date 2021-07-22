@@ -164,7 +164,6 @@ const remove = async (req, res) => {
     }
 };
 
-
 module.exports = {
     list,
     listInRoom,
