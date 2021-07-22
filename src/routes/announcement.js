@@ -10,7 +10,7 @@ router.post("/list", AnnouncementController.listInRoom);
 router.get("/", AnnouncementController.list);
 router.get("/:id", AnnouncementController.read);
 router.put("/:id", AnnouncementController.update);
-router.post("/", AnnouncementController.create);
+router.post("/new", AnnouncementController.create);
 router.delete("/:id", AnnouncementController.remove);
 
 module.exports = router;
