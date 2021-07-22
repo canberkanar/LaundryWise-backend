@@ -122,15 +122,14 @@ const update = async (req, res) => {
 
     // handle the request
     try {
-        let announcement = await Announcement.findByIdAndUpdate(
-            req.params.id,
-            req.body,
+        let announcement = await Announcement.findById(
             {
-                new: true,
-                runValidators: true,
+                _id: req.body.announcementId
             }
         ).exec();
-
+        announcement.title = req.body.title;
+        announcement.body = req.body.body;
+        announcement.save();
         return res.status(200).json(announcement);
     } catch (err) {
         console.log(err);
