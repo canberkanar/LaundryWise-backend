@@ -31,11 +31,10 @@ const getMachinesInRoom = async (req, res) => {
                 //console.log("in " + m.machineType);
                 machines.push(m);
             }
-            //machines.push(m);
+
+
         }
-        //console.log(laundryroom.machines);
-        //console.log(machines)
-        // return gotten movies
+
         return res.status(200).json(machines);
     } catch (err) {
         console.log(err);
