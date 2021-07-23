@@ -29,19 +29,17 @@ const create = async (req, res) => {
             message: "The request body is empty",
         });
 
-    // handle the request
     try {
-        // let feedback = await FeedbackController.create({});
-        // Fetch machine and timeslot
-        let machine = await Machine.findById(req.body.machine_id).exec();
-        let timeSlot = await TimeSlot.findById(req.body.allocated_time_id).exec();
+        // fecth machine and the respective timeslot from DB
+        let machine = await Machine.findById(req.body.machineId).exec();
+        let timeSlot = await TimeSlot.findById(req.body.allocatedTimeId).exec();
 
         // Create payment
-        payment_req = {
+        paymentReq = {
             cost: machine.price,
             isPaid: true
         }
-        let payment = await Payment.create(payment_req);
+        let payment = await Payment.create(paymentReq);
 
         // Create rental
         let rental = await Rental.create(
@@ -50,16 +48,22 @@ const create = async (req, res) => {
                 machineType: machine.machineType,
                 allocatedTime: timeSlot._id,
                 payment: payment._id,
-                customer: req.body.customer_id,
-                serviceProvider: req.body.service_provider_id
+                customer: req.body.customerId,
+                serviceProvider: req.body.serviceProviderId
             }
         );
 
         // Update timeslot status
         timeSlot.status = "occupied";
         await timeSlot.save()
-
-        return res.status(201).json(rental);
+        let activationCode = generateActivationCode()
+        let result = {
+            _id: rental._id,
+            machineType: rental.machineType,
+            allocatedTime: rental.allocatedTime,
+            activationCode: activationCode
+        }
+        return res.status(200).json(result);
     } catch (err) {
         console.log(err);
         return res.status(500).json({
@@ -154,6 +158,16 @@ const give_feedback_to_rental = async (req, res) => {
     }
 
 };
+
+
+function generateActivationCode() {
+    var result = "";
+    for ( var i = 0; i < 4; i++ ) {
+        var a = Math.floor(Math.random() * 10)
+        result += a
+    }
+    return result;
+}
 
 module.exports = {
     list,
