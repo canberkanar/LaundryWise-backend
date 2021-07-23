@@ -18,6 +18,71 @@ const list = async (req, res) => {
     }
 };
 
+const getMyLaundryRooms = async (req, res) => {
+    try {
+        // get all laundryrooms in database
+        let serviceProvider = await User.findOne(
+            {
+                laundrywiseCode: req.body.laundrywiseCode,
+                role: "admin"
+            }
+        ).exec();
+        
+        let laundryRooms = [];
+        for (laundryRoomId of serviceProvider.laundryRooms) {
+            let laundryRoom = await LaundryRoom.findById(laundryRoomId).exec();
+            console.log(laundryRoom);
+            let announcement = await Announcement.findById(
+                {
+                    _id: laundryRoom.announcements
+                }
+            ).exec();
+            finalLaundryRoom = {
+                name: laundryRoom.name,
+                isActive: laundryRoom.isActive,
+                address: laundryRoom.address,
+                operationStartHour: laundryRoom.operationStartHour,
+                operationEndHour: laundryRoom.operationEndHour,
+                machines: laundryRoom.machines,
+                announcements: laundryRoom.announcements,
+                theAnnouncement: {
+                    title: announcement.title,
+                    body: announcement.body
+                }
+            };
+            console.log(finalLaundryRoom)
+            laundryRooms.push(finalLaundryRoom);
+        }
+        return res.status(200).json(laundryRooms);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            error: "Internal server error",
+            message: err.message,
+        });
+    }
+};
+
+async function attachAnnouncements(laundryRoom) {
+    let announcement = await Announcement.findById(
+        {
+            _id: laundryRoom.announcements
+        }
+    ).exec();
+    return  {
+        name: laundryRoom,
+        isActive: laundryRoom,
+        address: laundryRoom,
+        operationStartHour: laundryRoom,
+        operationEndHour: laundryRoom,
+        machines: laundryRoom.machines,
+        announcements: laundryRoom.announcements,
+        announcementTitle: announcement.title,
+        announcementBody: announcement.body
+    };
+
+};
+
 const getMachinesInRoom = async (req, res) => {
     try {
         console.log(req.query.id)
@@ -280,5 +345,6 @@ module.exports = {
     update,
     remove,
     updateWorkingHours,
-    getMachinesInRoom
+    getMachinesInRoom,
+    getMyLaundryRooms
 };
