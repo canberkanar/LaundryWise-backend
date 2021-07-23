@@ -73,7 +73,7 @@ const create = async (req, res) => {
 // Fetches  rental by the given id
 const get = async (req, res) => {
     try {
-        let rental = await Rental.findById(req.param.id).exec();
+        let rental = await Rental.findById(req.body.rentalId).exec();
         return res.status(200).json(rental);
     } catch (err) {
         console.log(err);
@@ -83,6 +83,26 @@ const get = async (req, res) => {
         });
     }
 };
+
+
+// Fetches all rentals for given user
+const getAllRentalsUser = async (req, res) => {
+    try {
+        let rentals = await Rental.find(
+            {
+                customer: req.body.customerId
+            }
+        ).exec();
+        return res.status(200).json(rentals);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            error: "Internal server error - Rental Get",
+            message: err.message,
+        });
+    }
+};
+
 
 // Remove rental
 const remove = async (req, res) => {
@@ -140,5 +160,6 @@ module.exports = {
     create,
     get,
     remove,
-    give_feedback_to_rental
+    give_feedback_to_rental,
+    getAllRentalsUser
 };
