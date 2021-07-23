@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: String,
         // role can only take the value "member" and "admin"
-        enum: ["customer", "serviceProvider", "admin"],
+        enum: ["customer", "admin", "superAdmin"],
         // if not specified the role customer is chosen
         default: "customer",
     },
