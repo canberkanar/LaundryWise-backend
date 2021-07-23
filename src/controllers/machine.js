@@ -117,16 +117,10 @@ const create = async (req, res) => {
 
         // create movie in database
         let m = await Machine.create(req.body);
-        //const xx = req.body.deviceRoomId;
         let added_machine = await LaundryRoom.findOneAndUpdate(
             {_id: req.body.deviceRoomId},
             {$push: {machines: m}});
 
-        console.log(added_machine);
-
-        //LaundryRoom.updateOne({"id": req.body.deviceRoomId},)
-        // handle the request
-        // create machine in database
         return res.status(201).json(m);
 
     } catch
@@ -143,16 +137,12 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-
-        let filter = {_id: req.params.id};
+        console.log("in update Machine")
+        let filter = {_id: req.body.id};
         let updated_machine = req.body;
         let updated_version = await Machine.findOneAndUpdate(filter, updated_machine, {
             new: true
         });
-        // Feedback.findOneAndUpdate({id:req.body.id}, req.body, function (err) {
-
-        //   res.send(req.body);
-        //});
         return res.status(200).send(updated_version);
 
     } catch (err) {
@@ -165,17 +155,18 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-    let m = await Machine.findById(req.params.id).exec();
+    let m = await Machine.findById(req.query.id).exec();
+
     for (let ts of m.timeslots) {
         let removed_ts = await TimeSlot.findByIdAndDelete(ts);
 
     }
 
-    let removed = await Machine.findOneAndRemove({_id: req.params.id}, function (err, response) {
+    let removed = await Machine.findOneAndRemove({_id: req.query.id}, function (err, response) {
         if (err) throw err;
         LaundryRoom.update(
-            {"machines": req.params.id},
-            {"$pull": {"machines": req.params.id}},
+            {"machines": req.query.id},
+            {"$pull": {"machines": req.query.id}},
             async function (err, res1) {
                 if (err) throw err;
                 res.json(res1);
