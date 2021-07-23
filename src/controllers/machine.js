@@ -137,7 +137,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-
+        console.log("in update Machine")
         let filter = {_id: req.body.id};
         let updated_machine = req.body;
         let updated_version = await Machine.findOneAndUpdate(filter, updated_machine, {
@@ -155,17 +155,18 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-    let m = await Machine.findById(req.params.id).exec();
+    let m = await Machine.findById(req.query.id).exec();
+
     for (let ts of m.timeslots) {
         let removed_ts = await TimeSlot.findByIdAndDelete(ts);
 
     }
 
-    let removed = await Machine.findOneAndRemove({_id: req.params.id}, function (err, response) {
+    let removed = await Machine.findOneAndRemove({_id: req.query.id}, function (err, response) {
         if (err) throw err;
         LaundryRoom.update(
-            {"machines": req.params.id},
-            {"$pull": {"machines": req.params.id}},
+            {"machines": req.query.id},
+            {"$pull": {"machines": req.query.id}},
             async function (err, res1) {
                 if (err) throw err;
                 res.json(res1);
