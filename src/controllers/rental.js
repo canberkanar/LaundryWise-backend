@@ -44,14 +44,16 @@ const create = async (req, res) => {
         let payment = await Payment.create(payment_req);
 
         // Create rental
-        rental_req = {
-            machine: machine._id,
-            allocatedTime: timeSlot._id,
-            payment: payment._id,
-            customer: req.body.customer_id,
-            serviceProvider: req.body.service_provider_id
-        }
-        let rental = await Rental.create(rental_req);
+        let rental = await Rental.create(
+            {
+                machine: machine._id,
+                machineType: machine.machineType,
+                allocatedTime: timeSlot._id,
+                payment: payment._id,
+                customer: req.body.customer_id,
+                serviceProvider: req.body.service_provider_id
+            }
+        );
 
         // Update timeslot status
         timeSlot.status = "occupied";
