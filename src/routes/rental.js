@@ -12,6 +12,7 @@ const RentalController = require("../controllers/rental")
 
 
 router.get("/all", RentalController.list);
+router.post("/", RentalController.getAllRentalsUser);
 router.post("/", RentalController.create);
 router.get("/:id", RentalController.get);
 router.delete("/:id", RentalController.remove);
