@@ -47,6 +47,7 @@ const login = async (req, res) => {
 
         return res.status(200).json({
             token: token,
+            laundrywiseCode: user.laundrywiseCode
         });
     } catch (err) {
         return res.status(404).json({
@@ -111,7 +112,8 @@ const register = async (req, res) => {
         // return generated token
         res.status(200).json({
             token: token,
-            _id: retUser._id
+            _id: retUser._id,
+            laundrywiseCode: retUser.laundrywiseCode
         });
     } catch (err) {
         if (err.code == 11000) {

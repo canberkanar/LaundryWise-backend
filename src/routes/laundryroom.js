@@ -17,6 +17,7 @@ const LaundryController = require("../controllers/laundryroom")
 //     middlewares.checkIsServiceProvider, LaundryController.remove);
 
 router.put("/updateWorkingHours/", LaundryController.updateWorkingHours);
+router.post("/myLaundryRooms", LaundryController.getMyLaundryRooms);
 router.get("/get", LaundryController.get);
 router.get("/machinesInRoom/", LaundryController.getMachinesInRoom);
 router.get("/", LaundryController.list);
