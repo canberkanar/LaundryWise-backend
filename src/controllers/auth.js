@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 
 const config = require("../config");
 const UserModel = require("../models/user");
+const user = require("../models/user");
 
 const login = async (req, res) => {
     // check if the body of the request contains all necessary properties
@@ -71,7 +72,7 @@ const register = async (req, res) => {
 
     // handle the request
     try {
-        if (req.body.role === "serviceProvider")
+        if (req.body.role === "admin")
             var laundrywiseCode = makeid(5);
         else if (req.body.role === "customer")
             var laundrywiseCode = req.body.laundrywiseCode;
@@ -154,6 +155,36 @@ const logout = (req, res) => {
 };
 
 
+const getMyServiceProvider = async (req, res) => {
+    try {
+        // get own user name from database
+        let customer = await UserModel.findById(req.body.customerId).exec();
+        console.log(customer)
+        if (!customer)
+            return res.status(404).json({
+                error: "Not Found",
+                message: `User not found`,
+            });
+        
+        let serviceProvider = await UserModel.findOne(
+            {
+                laundrywiseCode: customer.laundrywiseCode,
+                role: "admin"
+            }
+        ).exec();
+
+        console.log(serviceProvider)
+
+        return res.status(200).json(serviceProvider._id);
+    } catch (err) {
+        return res.status(500).json({
+            error: "Internal Server Error",
+            message: err.message,
+        });
+    }
+};
+
+
 function makeid(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -169,4 +200,5 @@ module.exports = {
     register,
     logout,
     me,
+    getMyServiceProvider
 };
