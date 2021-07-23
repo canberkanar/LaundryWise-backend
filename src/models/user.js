@@ -21,13 +21,7 @@ const UserSchema = new mongoose.Schema({
     },
     registrationDate: {
         type: Date,
-    },
-    taxNumber: {
-        type: Number,
-    },
-    // bunu sil
-    balance: {
-        type: Number,
+        default: Date.now
     },
     laundrywiseCode: {
         type: String
