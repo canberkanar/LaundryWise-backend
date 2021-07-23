@@ -39,6 +39,10 @@ const PaymentSchema = new mongoose.Schema({
 
 const RentalSchema = new mongoose.Schema({
     machine: {type: mongoose.Schema.Types.ObjectId, ref: "Machine"},
+    machineType: {
+        type: String,
+        enum: ["washer", "dryer"]
+    },
     allocatedTime: {type: mongoose.Schema.Types.ObjectId, ref: "TimeSlot"},
     payment: {type: mongoose.Schema.Types.ObjectId, ref: "Payment"},
     feedback: {type: mongoose.Schema.Types.ObjectId, ref: "Feedback"},

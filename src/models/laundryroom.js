@@ -39,7 +39,6 @@ const MachineSchema = new mongoose.Schema({
     },
     operationCount: {
         type: Number,
-        required: true,
         default: 0,
     },
     registrationDate: {
