@@ -38,6 +38,7 @@ const getMyLaundryRooms = async (req, res) => {
                 }
             ).exec();
             finalLaundryRoom = {
+                _id: laundryRoom._id,
                 name: laundryRoom.name,
                 isActive: laundryRoom.isActive,
                 address: laundryRoom.address,
