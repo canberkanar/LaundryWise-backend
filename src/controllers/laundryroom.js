@@ -200,8 +200,8 @@ const create = async (req, res) => {
         }
         let newLaundryRoom = await LaundryRoom.create(reqLaundryRoom);
         let reqAnnouncement = {
-            "title": "   ",
-            "body": "   "
+            "title": "",
+            "body": ""
         }
         let announcement = await Announcement.create(reqAnnouncement);
         console.log(announcement)
@@ -216,8 +216,6 @@ const create = async (req, res) => {
                 new: true
             }
         );
-        console.log("=========")
-        console.log(finalLaundryRoom)
         let serviceProvider = await User.findOneAndUpdate(
             {
                 _id: req.body.serviceProviderId
