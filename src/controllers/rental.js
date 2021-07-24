@@ -23,6 +23,8 @@ const list = async (req, res) => {
 // Creates a new rental
 const create = async (req, res) => {
     // check if the body of the request contains all necessary properties
+    console.log("here")
+    console.log(req.body)
     if (Object.keys(req.body).length === 0)
         return res.status(400).json({
             error: "Bad Request",
@@ -95,9 +97,33 @@ const getAllRentalsUser = async (req, res) => {
         let rentals = await Rental.find(
             {
                 customer: req.body.customerId
-            }
+            } 
         ).exec();
-        return res.status(200).json(rentals);
+        pastRentals = [];
+        futureRentals = [];
+        var timestampNow= Date.now();
+        for (rental of rentals) {
+            let timeSlot = await TimeSlot.findById(rental.allocatedTime).exec();
+            let payment = await Payment.findById(rental.payment).exec();
+            let machine = await Machine.findById(rental.machine).exec();
+            const resultRental = {
+                date: timeSlot.startTime,
+                machineNumber: machine.deviceNumberInRoom,
+                machineType: machine.machineType,   
+                price: payment.cost
+            }
+            if (timeSlot.startTime > timestampNow) {
+                futureRentals.push(resultRental)
+            } else {
+                pastRentals.push(resultRental)
+            }
+        }
+        return res.status(200).json(
+            {
+                futureRentals: futureRentals,
+                pastRentals: pastRentals
+            }
+        );
     } catch (err) {
         console.log(err);
         return res.status(500).json({

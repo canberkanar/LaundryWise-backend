@@ -11,8 +11,8 @@ const RentalController = require("../controllers/rental")
 // router.put("/:id", middlewares.checkAuthentication, RentalController.give_feedback_to_rental);
 
 
+router.post("/myRentals", RentalController.getAllRentalsUser);
 router.get("/all", RentalController.list);
-router.post("/all/me", RentalController.getAllRentalsUser);
 router.post("/", RentalController.create);
 router.get("/:id", RentalController.get);
 router.delete("/:id", RentalController.remove);
