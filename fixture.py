@@ -35,60 +35,6 @@ SevPro2 = {
     "mobileNumber": "+49 30 921875",
     "role": "admin"
 }
-Cust1 = {
-    "username": "Laura-Paul",
-    "password": "123456",
-    "email": "laurapaul@email.com",
-    "address": "address3",
-    "mobileNumber": "333333",
-    "role": "customer"
-}
-Cust2 = {
-    "username": "Herman-Hess",
-    "password": "123456",
-    "email": "hermann@email.com",
-    "address": "address4",
-    "mobileNumber": "4444444",
-    "role": "customer"
-}
-Cust3 = {
-    "username": "Talha",
-    "password": "123456",
-    "email": "talha@email.com",
-    "address": "Knorrstrasse 57, 80807 Muenchen",
-    "mobileNumber": "+491573346810",
-    "role": "customer"
-}
-Cust4 = {
-    "username": "Dilruba",
-    "password": "123456",
-    "email": "dilruba@email.com",
-    "address": """Apartment Complex Unity-alpha
-        Josef-Wirth-Weg 21
-        80939 Muenchen""",
-    "mobileNumber": "+491578021193",
-    "role": "customer"
-}
-Cust5 = {
-    "username": "Ayberk",
-    "password": "123456",
-    "email": "dilruba@email.com",
-    "address": """Apartment Complex „unity β“
-        Freisinger Landstraße 84-90
-        80939 Muenchen""",
-    "mobileNumber": "+4915381217993",
-    "role": "customer"
-}
-Cust6 = {
-    "username": "Canberk",
-    "password": "123456",
-    "email": "canberk@email.com",
-    "address": """Apartment Complex „unity β“
-        Freisinger Landstraße 84-90
-        80939 Muenchen""",
-    "mobileNumber": "+491570020423",
-    "role": "customer"
-}
 SuperAdmin = {
     "username": "admin",
     "password": "123456",
@@ -98,8 +44,76 @@ SuperAdmin = {
     "role": "superAdmin"
 }
 
+
 serviceProvider1 = requests.post(url=URL, json=SevPro1).json()
 serviceProvider2 = requests.post(url=URL, json=SevPro2).json()
+print("Created 2 service providers.")
+superAdmin = requests.post(url=URL, json=SuperAdmin).json()
+print("Created 1 super admin.")
+
+
+Cust1 = {
+    "username": "Laura-Paul",
+    "password": "123456",
+    "email": "laurapaul@email.com",
+    "address": "address3",
+    "mobileNumber": "333333",
+    "role": "customer",
+    "laundrywiseCode" : serviceProvider2["laundrywiseCode"]
+}
+Cust2 = {
+    "username": "Herman-Hess",
+    "password": "123456",
+    "email": "hermann@email.com",
+    "address": "address4",
+    "mobileNumber": "4444444",
+    "role": "customer",
+    "laundrywiseCode" : serviceProvider1["laundrywiseCode"]
+}
+Cust3 = {
+    "username": "Talha",
+    "password": "123456",
+    "email": "talha@email.com",
+    "address": "Knorrstrasse 57, 80807 Muenchen",
+    "mobileNumber": "+491573346810",
+    "role": "customer",
+    "laundrywiseCode" : serviceProvider2["laundrywiseCode"]
+}
+Cust4 = {
+    "username": "Dilruba",
+    "password": "123456",
+    "email": "dilruba@email.com",
+    "address": """Apartment Complex Unity-alpha
+        Josef-Wirth-Weg 21
+        80939 Muenchen""",
+    "mobileNumber": "+491578021193",
+    "role": "customer",
+    "laundrywiseCode" : serviceProvider1["laundrywiseCode"]
+}
+Cust5 = {
+    "username": "Ayberk",
+    "password": "123456",
+    "email": "dilruba@email.com",
+    "address": """Apartment Complex „unity β“
+        Freisinger Landstraße 84-90
+        80939 Muenchen""",
+    "mobileNumber": "+4915381217993",
+    "role": "customer",
+    "laundrywiseCode" : serviceProvider1["laundrywiseCode"]
+}
+Cust6 = {
+    "username": "Canberk",
+    "password": "123456",
+    "email": "canberk@email.com",
+    "address": """Apartment Complex „unity β“
+        Freisinger Landstraße 84-90
+        80939 Muenchen""",
+    "mobileNumber": "+491570020423",
+    "role": "customer",
+    "laundrywiseCode" : serviceProvider1["laundrywiseCode"]
+}
+
+
 customer1 = requests.post(url=URL, json=Cust1).json()
 customer2 = requests.post(url=URL, json=Cust2).json()
 customer3 = requests.post(url=URL, json=Cust3).json()
@@ -339,7 +353,6 @@ reservation8 = requests.post(url=URL, json=R8).json()
 reservation9 = requests.post(url=URL, json=R9).json()
 reservation10 = requests.post(url=URL, json=R10).json()
 
-print(R1)
 print("Created 10 rentals.")
 
 
