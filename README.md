@@ -48,4 +48,9 @@ pip3 install requests
 python3 fixture.py
 ```
 
+**Load Data to MongoDB with Python 3.7**
+To see available REST calls please refer to 
+```bash
+Postman_API_Script
+```
 The system will fetch the latest version of code base everytime you save your changes, no need to start everytime!
