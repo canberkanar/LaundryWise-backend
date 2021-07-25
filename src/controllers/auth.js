@@ -5,7 +5,6 @@ const bcrypt = require("bcryptjs");
 
 const config = require("../config");
 const UserModel = require("../models/user");
-const user = require("../models/user");
 
 const login = async (req, res) => {
     // check if the body of the request contains all necessary properties

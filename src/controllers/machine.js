@@ -7,7 +7,7 @@ const list = async (req, res) => {
         // get all laundryrooms in database
         let m = await Machine.find({}).exec();
 
-        // return gotten movies
+
         return res.status(200).json(m);
     } catch (err) {
         console.log(err);
@@ -23,7 +23,7 @@ const get = async (req, res) => {
     try {
         console.log(req.params.id)
         let m = await Machine.findById(req.params.id).exec();
-        // return gotten movies
+
         return res.status(200).json(m);
     } catch (err) {
         console.log(err);
@@ -115,7 +115,7 @@ const create = async (req, res) => {
         }
 
 
-        // create movie in database
+
         let m = await Machine.create(req.body);
         let added_machine = await LaundryRoom.findOneAndUpdate(
             {_id: req.body.deviceRoomId},

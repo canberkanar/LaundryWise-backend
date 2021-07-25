@@ -119,7 +119,7 @@ const get = async (req, res) => {
     try {
         console.log(req.body.id)
         let m = await LaundryRoom.findById(req.body.id).exec();
-        // return gotten movies
+
         return res.status(200).json(m);
     } catch (err) {
         console.log(err);

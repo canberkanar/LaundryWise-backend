@@ -5,7 +5,7 @@ const list = async (req, res) => {
         // get all laundryrooms in database
         let feedback = await Feedback.find({}).exec();
 
-        // return gotten movies
+
         return res.status(200).json(feedback);
     } catch (err) {
         console.log(err);
@@ -22,7 +22,7 @@ const get = async (req, res) => {
         // get all laundryrooms in database
         console.log(req.body.id)
         let feedback = await Feedback.findById(req.body.id).exec();
-        // return gotten movies
+
         return res.status(200).json(feedback);
     } catch (err) {
         console.log(err);
@@ -59,12 +59,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        // get all laundryrooms in database
-        //let feedback = await Feedback.find({}).exec();
-        //let feedback = await Feedback.findById(req.body.id).exec();
-        //feedback['score'] =  req.body.score;
-        //feedback['message'] = req.body.message;
-        // return gotten movies
+
         let filter = { _id: req.params.id };
         let updated_feedback = req.body;
         let updated_version = await Feedback.findOneAndUpdate(filter, updated_feedback, {

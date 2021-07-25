@@ -7,7 +7,6 @@ const helmet = require('helmet');
 const middlewares = require('./middlewares');
 
 const auth = require('./routes/auth');
-const movie = require('./routes/movie');
 const laundryRoom = require('./routes/laundryroom')
 const machine = require('./routes/machine')
 const feedback = require('./routes/feedback')
@@ -32,7 +31,6 @@ api.get('/', (req, res) => {
 
 // API routes
 api.use('/auth', auth);
-api.use('/movies', movie);
 api.use('/laundryroom', laundryRoom)
 api.use('/machine', machine)
 api.use('/feedback',feedback)
