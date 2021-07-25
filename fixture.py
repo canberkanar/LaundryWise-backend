@@ -268,78 +268,68 @@ machine11 = requests.post(url=URL, json=M11).json()
 print("Created 11 machines.")
 
 # CREATE RENTALS:
-URL = BASE_URL + PORT + "rental/"
+URL = BASE_URL + PORT + "rental/new"
 
 R1 = {   
     "machineId": machine1["_id"],
     "machineType": "washer",
     "allocatedTimeId": machine1["timeslots"][1]["_id"],
-    "customerId": customer1["_id"],
-    "serviceProviderId": serviceProvider1["_id"]
+    "customerId": customer1["_id"]
 }
 
 R2 = {   
     "machineId": machine1["_id"],
     "machineType": "washer",
     "allocatedTimeId": machine1["timeslots"][1]["_id"],
-    "customerId": customer1["_id"],
-    "serviceProviderId": serviceProvider1["_id"]
+    "customerId": customer1["_id"]
 }
 R3 = {   
     "machineId": machine1["_id"],
     "machineType": "washer",
     "allocatedTimeId": machine1["timeslots"][2]["_id"],
-    "customerId": customer2["_id"],
-    "serviceProviderId": serviceProvider1["_id"]
+    "customerId": customer2["_id"]
 }
 R4 = {   
     "machineId": machine2["_id"],
     "machineType": "washer",
     "allocatedTimeId": machine2["timeslots"][11]["_id"],
-    "customerId": customer1["_id"],
-    "serviceProviderId": serviceProvider1["_id"]
+    "customerId": customer1["_id"]
 }
 R5 = {   
     "machineId": machine11["_id"],
     "machineType": "dryer",
     "allocatedTimeId": machine11["timeslots"][29]["_id"],
-    "customerId": customer2["_id"],
-    "serviceProviderId": serviceProvider2["_id"]
+    "customerId": customer2["_id"]
 }
 R6 = {   
     "machineId": machine5["_id"],
     "machineType": "dryer",
     "allocatedTimeId": machine5["timeslots"][22]["_id"],
-    "customerId": customer2["_id"],
-    "serviceProviderId": serviceProvider1["_id"]
+    "customerId": customer2["_id"]
 }
 R7 = {   
     "machineId": machine7["_id"],
     "machineType": "dryer",
     "allocatedTimeId": machine7["timeslots"][29]["_id"],
-    "customerId": customer1["_id"],
-    "serviceProviderId": serviceProvider1["_id"]
+    "customerId": customer1["_id"]
 }
 R8 = {   
     "machineId": machine8["_id"],
     "machineType": "washer",
     "allocatedTimeId": machine8["timeslots"][10]["_id"],
-    "customerId": customer2["_id"],
-    "serviceProviderId": serviceProvider2["_id"]
+    "customerId": customer2["_id"]
 }
 R9 = {   
     "machineId": machine10["_id"],
     "machineType": "dryer",
     "allocatedTimeId": machine10["timeslots"][6]["_id"],
-    "customerId": customer1["_id"],
-    "serviceProviderId": serviceProvider2["_id"]
+    "customerId": customer1["_id"]
 }
 R10 = {   
     "machineId": machine3["_id"],
     "machineType": "washer",
     "allocatedTimeId": machine3["timeslots"][5]["_id"],
-    "customerId": customer2["_id"],
-    "serviceProviderId": serviceProvider1["_id"]
+    "customerId": customer2["_id"]
 }
 
 reservation1 = requests.post(url=URL, json=R1).json()
