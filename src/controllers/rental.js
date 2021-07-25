@@ -121,6 +121,7 @@ const getAllRentalsUser = async (req, res) => {
             // future rentals
             if (timeSlot.startTime > timestampNow) {
                 const futureRental = {
+                    _id: rental._id,
                     date: timeSlot.startTime,
                     machineNumber: machine.deviceNumberInRoom,
                     machineType: machine.machineType,
