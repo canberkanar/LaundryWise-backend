@@ -116,7 +116,13 @@ const getAllRentalsUser = async (req, res) => {
             let timeSlot = await TimeSlot.findById(rental.allocatedTime).exec();
             let payment = await Payment.findById(rental.payment).exec();
             let machine = await Machine.findById(rental.machine).exec();
+            console.log("GET ALL RENTAL USER");
+            console.log(timeSlot);
+            console.log(rental.payment);
+            console.log(payment);
+            console.log(machine);
             const resultRental = {
+                _id: rental._id,
                 date: timeSlot.startTime,
                 machineNumber: machine.deviceNumberInRoom,
                 machineType: machine.machineType,   
