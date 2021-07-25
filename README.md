@@ -16,7 +16,7 @@ Just for the backend application:
 
 Go to your project root folder via command line
 ```
-cd path/to/workspace/seba-master-movie-backend
+cd path/to/workspace/seba-master-2021/team-39/backend/
 ```
 
 **Install node dependencies**
@@ -35,25 +35,22 @@ mongod --dbpath "path/to/database"
 
 ## Start the project
 
-**Development environment**
-```bash
-npm run devstart
-```
 
 **Production environment**
 ```bash
 npm start
 ```
 
-
-**Alternative (Recommended)**
-Auto restart server on change 
-First install nodemon
+**Load Data to MongoDB with Python 3.7**
+This will create several instances in MongoDB
 ```bash
-npm install nodemon
+pip3 install requests
+python3 fixture.py
 ```
-then run
+
+**Load Data to MongoDB with Python 3.7**
+To see available REST calls please refer to 
 ```bash
-nodemon index.js
+Postman_API_Collection_Script
 ```
 The system will fetch the latest version of code base everytime you save your changes, no need to start everytime!
