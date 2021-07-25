@@ -111,22 +111,28 @@ const getAllRentalsUser = async (req, res) => {
         ).exec();
         pastRentals = [];
         futureRentals = [];
+        console.log("RENTALS")
+        console.log(rentals)
         var timestampNow= Date.now();
         for (rental of rentals) {
             let timeSlot = await TimeSlot.findById(rental.allocatedTime).exec();
             let payment = await Payment.findById(rental.payment).exec();
             let machine = await Machine.findById(rental.machine).exec();
-            const resultRental = {
-                _id: rental._id,
-                date: timeSlot.startTime,
-                machineNumber: machine.deviceNumberInRoom,
-                machineType: machine.machineType,   
-                price: payment.cost
-            }
+            // future rentals
             if (timeSlot.startTime > timestampNow) {
-                futureRentals.push(resultRental)
+                const futureRental = {
+                    date: timeSlot.startTime,
+                    machineNumber: machine.deviceNumberInRoom,
+                    machineType: machine.machineType,
+                    price: payment.cost
+                }
+                futureRentals.push(futureRental)
             } else {
-                pastRentals.push(resultRental)
+                const pastRental = {
+                    date: timeSlot.startTime,
+                    price: payment.cost
+                }
+                pastRentals.push(pastRental)
             }
         }
         return res.status(200).json(
