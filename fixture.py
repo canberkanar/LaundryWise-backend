@@ -93,9 +93,9 @@ Cust4 = {
 Cust5 = {
     "username": "Ayberk",
     "password": "123456",
-    "email": "ayberk@email.com",
-    "address": """Apartment Complex unity B“
-        Freisinger Landstrasse 84-90
+    "email": "dilruba@email.com",
+    "address": """Apartment Complex „unity β“
+        Freisinger Landstraße 84-90
         80939 Muenchen""",
     "mobileNumber": "+4915381217993",
     "role": "customer",
@@ -105,8 +105,8 @@ Cust6 = {
     "username": "Canberk",
     "password": "123456",
     "email": "canberk@email.com",
-    "address": """Apartment Complex unity B“
-        Freisinger Landstrasse 84-90
+    "address": """Apartment Complex „unity β“
+        Freisinger Landstraße 84-90
         80939 Muenchen""",
     "mobileNumber": "+491570020423",
     "role": "customer",
@@ -120,6 +120,7 @@ customer3 = requests.post(url=URL, json=Cust3).json()
 customer4 = requests.post(url=URL, json=Cust4).json()
 customer5 = requests.post(url=URL, json=Cust5).json()
 customer6 = requests.post(url=URL, json=Cust6).json()
+superAdmin = requests.post(url=URL, json=SuperAdmin).json()
 print("Created 9 users.")
 
 
