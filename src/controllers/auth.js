@@ -67,7 +67,7 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
     console.log("REGISTER - Laundrywise Code")
-    console.log(req.body.laundrywiseCode)
+    console.log(req.body)
     // check if the body of the request contains all necessary properties
     if (!Object.prototype.hasOwnProperty.call(req.body, "password"))
         return res.status(400).json({
@@ -81,33 +81,38 @@ const register = async (req, res) => {
             message: "The request body must contain a username property",
         });
 
-    if (!Object.prototype.hasOwnProperty.call(req.body, "laundrywiseCode"))
+    if (req.body.role === "customer") {
+        if (!Object.prototype.hasOwnProperty.call(req.body, "laundrywiseCode"))
         return res.status(400).json({
             error: "Bad Request",
             message: "The request body must contain a laundrywise code property",
         });
-
-    let serviceProvicer = await UserModel.findOne(
-        {
-            role: "admin",
-            laundrywiseCode: req.body.laundrywiseCode
-        }
-    ).exec();
-    console.log("SERVICE PROVIDERNOT FOUND")
-    if (!serviceProvicer)
-        return res.status(400).json({
-            error: "Bad Request",
-            message: "The laundrywise code does not exist",
-        });
+        let myServiceProvicer = await UserModel.findOne(
+            {
+                role: "admin",
+                laundrywiseCode: req.body.laundrywiseCode
+            }
+        ).exec();
+        console.log("SERVICE PROVIDER NOT FOUND")
+        if (!myServiceProvicer)
+            return res.status(400).json({
+                error: "Bad Request",
+                message: "The laundrywise code does not exist",
+            });
+    }
 
     // handle the request
     try {
-        if (req.body.role === "admin")
+        if (req.body.role === "admin") {
             var laundrywiseCode = makeid(5);
-        else if (req.body.role === "customer")
+            console.log("IT IS ADMIN")
+            console.log(laundrywiseCode)
+        }
+        else if (req.body.role === "customer") {
             console.log("IT IS CUSTOMER")
             var laundrywiseCode = req.body.laundrywiseCode;
-
+        }
+            
         // hash the password before storing it in the database
         const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
