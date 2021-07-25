@@ -5,7 +5,7 @@ const list = async (req, res) => {
         // get all rentals in database
         let payments = await Payment.find({}).exec();
 
-        // return gotten movies
+
         return res.status(200).json(payments);
     } catch (err) {
         console.log(err);

@@ -1,7 +1,7 @@
 const {Rental, Feedback, Payment} = require("../models/rental")
 const {Machine, TimeSlot} = require("../models/laundryroom")
 const User = require("../models/user");
-var FeedbackController = require("./feedback"); // bu lazim mi? -Talha
+var FeedbackController = require("./feedback");
 var MachineController = require("./machine");
 
 
