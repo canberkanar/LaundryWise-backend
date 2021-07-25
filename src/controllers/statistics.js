@@ -1,5 +1,4 @@
 const {Rental, Payment} = require("../models/rental");
-const {User} = require("../models/user");
 
 
 const getStatistics = async (req, res) => {

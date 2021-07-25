@@ -1,5 +1,6 @@
 const {Rental, Feedback, Payment} = require("../models/rental")
 const {Machine, TimeSlot} = require("../models/laundryroom")
+const User = require("../models/user");
 var FeedbackController = require("./feedback"); // bu lazim mi? -Talha
 var MachineController = require("./machine");
 
@@ -23,8 +24,6 @@ const list = async (req, res) => {
 // Creates a new rental
 const create = async (req, res) => {
     // check if the body of the request contains all necessary properties
-    console.log("here")
-    console.log(req.body)
     if (Object.keys(req.body).length === 0)
         return res.status(400).json({
             error: "Bad Request",
@@ -42,7 +41,18 @@ const create = async (req, res) => {
             isPaid: true
         }
         let payment = await Payment.create(paymentReq);
-
+        //
+        let allUsers = await User.find({}).exec();
+        console.log(allUsers);
+        let customer = await User.findById("60fc0dbf31098d80d159ad57").exec();
+        console.log(customer);
+        let serviceProvider = await User.findOne(
+            {
+                laundrywiseCode: customer.laundrywiseCode,
+                role: "admin"
+            }
+        ).exec();
+        //
         // Create rental
         let rental = await Rental.create(
             {
@@ -51,7 +61,7 @@ const create = async (req, res) => {
                 allocatedTime: timeSlot._id,
                 payment: payment._id,
                 customer: req.body.customerId,
-                serviceProvider: req.body.serviceProviderId
+                serviceProvider: serviceProvider._id
             }
         );
 
