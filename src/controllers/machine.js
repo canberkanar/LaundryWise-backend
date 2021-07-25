@@ -1,5 +1,5 @@
 const {Machine, LaundryRoom, TimeSlot} = require("../models/laundryroom");
-
+const {Rental, Payment} = require("../models/rental");
 const numberOfDaysToGenerate = 30;
 
 const list = async (req, res) => {
@@ -164,12 +164,47 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     let m = await Machine.findById(req.query.id).exec();
-
+    /*
     for (let ts of m.timeslots) {
         let removed_ts = await TimeSlot.findByIdAndDelete(ts);
 
+    }*/
+    let rentals = await Rental.find(
+        {
+            machine: req.query.id
+        }
+    )
+    let timestampNow = Date.now();
+    let timeSlotPastRentals = []
+    for (let rental of rentals) {
+        let allocatedTimeSlot = await TimeSlot.findById(rental.allocatedTime)
+        //future rental
+        if(timestampNow < allocatedTimeSlot.startTime ){
+            console.log("FUTURE RENTAL")
+            console.log(rental)
+            let p = await Payment.findByIdAndDelete(rental.payment)
+            let r = await Rental.findByIdAndDelete(rental._id)
+        }
+        else{//past rentals
+            timeSlotPastRentals.push(allocatedTimeSlot._id.toString())
+        }
     }
+    console.log("PAST RENTALS")
+    console.log(timeSlotPastRentals)
+    console.log(typeof(timeSlotPastRentals[1]))
+    var timeslot_counter = 0
+    var deleted = 0
+    for (let ts of m.timeslots) {
+        //console.log(ts)
+        //console.log(typeof(ts))
+        if(timeSlotPastRentals.includes(ts.toString())){
+            console.log("ESLESTI SILME")
+        }else{
+            let removed_ts = await TimeSlot.findByIdAndDelete(ts);
 
+        }
+    }
+    console.log("timeslot counter: " + timeslot_counter + " deleted: " + deleted)
     let removed = await Machine.findOneAndRemove({_id: req.query.id}, function (err, response) {
         if (err) throw err;
         LaundryRoom.update(

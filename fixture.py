@@ -138,7 +138,7 @@ LR1 = {
     "operationEndHour": 24
 }
 LR2 = {
-    "serviceProviderId": serviceProvider1["_id"],
+    "serviceProviderId": serviceProvider2["_id"],
     "name": "Blok-B",
     "address": "Apartment Complex Unity-alpha Josef-Wirth-Weg 21 80939 Munich",
     "operationStartHour": 6,
@@ -165,13 +165,14 @@ print("Created 3 laundry rooms.")
 URL = BASE_URL + PORT + "machine/"
 
 M1 = {
-    "deviceRoomId": laundryRoom1["_id"],
+    "deviceRoomId": laundryRoom2["_id"],
     "deviceNumberInRoom": 1,
     "machineType": "washer",
     "isEnabled": True,
     "operationCount": 0,
     "price": 1.6
 }
+'''
 M2 = {
     "deviceRoomId": laundryRoom1["_id"],
     "deviceNumberInRoom": 2,
@@ -252,8 +253,9 @@ M11 = {
     "operationCount": 0,
     "price": 1.5
 }
-
+'''
 machine1 = requests.post(url=URL, json=M1).json()
+'''
 machine2 = requests.post(url=URL, json=M2).json()
 machine3 = requests.post(url=URL, json=M3).json()
 machine4 = requests.post(url=URL, json=M4).json()
@@ -264,7 +266,7 @@ machine8 = requests.post(url=URL, json=M8).json()
 machine9 = requests.post(url=URL, json=M9).json()
 machine10 = requests.post(url=URL, json=M10).json()
 machine11 = requests.post(url=URL, json=M11).json()
-
+'''
 print("Created 11 machines.")
 
 # CREATE RENTALS:
@@ -276,29 +278,29 @@ R1 = {
     "allocatedTimeId": machine1["timeslots"][1]["_id"],
     "customerId": customer1["_id"]
 }
-
 R2 = {   
     "machineId": machine1["_id"],
     "machineType": "washer",
-    "allocatedTimeId": machine1["timeslots"][1]["_id"],
+    "allocatedTimeId": machine1["timeslots"][2]["_id"],
     "customerId": customer1["_id"]
 }
 R3 = {   
     "machineId": machine1["_id"],
     "machineType": "washer",
-    "allocatedTimeId": machine1["timeslots"][2]["_id"],
-    "customerId": customer2["_id"]
-}
-R4 = {   
-    "machineId": machine2["_id"],
-    "machineType": "washer",
-    "allocatedTimeId": machine2["timeslots"][11]["_id"],
+    "allocatedTimeId": machine1["timeslots"][30]["_id"],
     "customerId": customer1["_id"]
 }
+R4 = {   
+    "machineId": machine1["_id"],
+    "machineType": "washer",
+    "allocatedTimeId": machine1["timeslots"][31]["_id"],
+    "customerId": customer1["_id"]
+}
+'''
 R5 = {   
     "machineId": machine11["_id"],
     "machineType": "dryer",
-    "allocatedTimeId": machine11["timeslots"][29]["_id"],
+    "allocatedTimeId": machine11["timeslots"][31]["_id"],
     "customerId": customer2["_id"]
 }
 R6 = {   
@@ -331,18 +333,19 @@ R10 = {
     "allocatedTimeId": machine3["timeslots"][5]["_id"],
     "customerId": customer2["_id"]
 }
-
+'''
 reservation1 = requests.post(url=URL, json=R1).json()
 reservation2 = requests.post(url=URL, json=R2).json()
 reservation3 = requests.post(url=URL, json=R3).json()
 reservation4 = requests.post(url=URL, json=R4).json()
+'''
 reservation5 = requests.post(url=URL, json=R5).json()
 reservation6 = requests.post(url=URL, json=R6).json()
 reservation7 = requests.post(url=URL, json=R7).json()
 reservation8 = requests.post(url=URL, json=R8).json()
 reservation9 = requests.post(url=URL, json=R9).json()
 reservation10 = requests.post(url=URL, json=R10).json()
-
+'''
 print("Created 10 rentals.")
 
 
