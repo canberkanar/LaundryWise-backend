@@ -44,7 +44,7 @@ const create = async (req, res) => {
         //
         let allUsers = await User.find({}).exec();
         console.log(allUsers);
-        let customer = await User.findById("60fc0dbf31098d80d159ad57").exec();
+        let customer = await User.findById(req.body.customerId).exec();
         console.log(customer);
         let serviceProvider = await User.findOne(
             {
