@@ -120,7 +120,6 @@ customer3 = requests.post(url=URL, json=Cust3).json()
 customer4 = requests.post(url=URL, json=Cust4).json()
 customer5 = requests.post(url=URL, json=Cust5).json()
 customer6 = requests.post(url=URL, json=Cust6).json()
-superAdmin = requests.post(url=URL, json=SuperAdmin).json()
 print("Created 9 users.")
 
 
