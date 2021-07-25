@@ -48,8 +48,8 @@ pip3 install requests
 python3 fixture.py
 ```
 
-**Load Data to MongoDB with Python 3.7**
-To see available REST calls please refer to 
+**To see available REST calls please refer to **
+
 ```bash
 Postman_API_Collection_Script
 ```
