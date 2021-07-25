@@ -21,12 +21,16 @@ const list = async (req, res) => {
 const getMyLaundryRooms = async (req, res) => {
     try {
         // get all laundryrooms in database
+        console.log("GET MY LAUNDRY ROOMS -- LAUNDRYWISE CODE")
+        console.log(req.body.laundrywiseCode)
         let serviceProvider = await User.findOne(
             {
                 laundrywiseCode: req.body.laundrywiseCode,
                 role: "admin"
             }
         ).exec();
+        console.log("GET MY LAUNDRY ROOMS");
+        console.log(serviceProvider);
         
         let laundryRooms = [];
         for (laundryRoomId of serviceProvider.laundryRooms) {
