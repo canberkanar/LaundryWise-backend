@@ -4,7 +4,7 @@
 
 # laundrywise-backend application
 
-laundrywise-frontend application can be found [here](https://github.com/canberkanar/LaundryWise-frontend)
+LaundryWise-frontend application can be found [here](https://github.com/canberkanar/LaundryWise-frontend).
 
 ## Prerequisites
 
