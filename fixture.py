@@ -18,13 +18,11 @@ HEADER = {}
 URL = BASE_URL + PORT + "auth/register"
 
 SevPro1 = {
-    "username": "Grammar-Immobilien",
+    "username": "Immobilien-Company",
     "password": "123456",
-    "email": "grammar@email.com",
-    "address": """Apartment Complex Unity-alpha
-        Josef-Wirth-Weg 21
-        80939 Munich""",
-    "mobileNumber": "+49 30 901820",
+    "email": "immobilien@email.com",
+    "address": """Apartment Complex Munich""",
+    "mobileNumber": "+49 00 000000",
     "role": "admin"
 }
 SevPro2 = {
@@ -74,10 +72,8 @@ Cust3 = {
     "username": "Dilruba",
     "password": "123456",
     "email": "dilruba@email.com",
-    "address": """Apartment Complex Unity-alpha
-        Josef-Wirth-Weg 21
-        80939 Muenchen""",
-    "mobileNumber": "+491578021193",
+    "address": """Apartment Complex Muenchen""",
+    "mobileNumber": "+490000000000",
     "role": "customer",
     "laundrywiseCode" : serviceProvider1["laundrywiseCode"]
 }
@@ -85,10 +81,8 @@ Cust4 = {
     "username": "Ayberk",
     "password": "123456",
     "email": "dilruba@email.com",
-    "address": """Apartment Complex „unity β“
-        Freisinger Landstraße 84-90
-        80939 Muenchen""",
-    "mobileNumber": "+4915381217993",
+    "address": """Apartment Complex Muenchen""",
+    "mobileNumber": "+490000000000",
     "role": "customer",
     "laundrywiseCode" : serviceProvider1["laundrywiseCode"]
 }
@@ -96,10 +90,8 @@ Cust5 = {
     "username": "Canberk",
     "password": "123456",
     "email": "canberk@email.com",
-    "address": """Apartment Complex „unity β“
-        Freisinger Landstraße 84-90
-        80939 Muenchen""",
-    "mobileNumber": "+491570020423",
+    "address": """Apartment Complex Muenchen""",
+    "mobileNumber": "+490000000000",
     "role": "customer",
     "laundrywiseCode" : serviceProvider1["laundrywiseCode"]
 }
@@ -107,8 +99,8 @@ Cust6 = {
     "username": "Talha",
     "password": "123456",
     "email": "talhasen@protonmail.com",
-    "address": "Knorrstrasse 57, 80807 Muenchen",
-    "mobileNumber": "+491573346810",
+    "address": "Knorrstrasse , 80807 Muenchen",
+    "mobileNumber": "+490000000000",
     "role": "customer",
     "laundrywiseCode" : serviceProvider2["laundrywiseCode"]
 }
@@ -125,8 +117,8 @@ Cust8 = {
     "username": "Bikem",
     "password": "123456",
     "email": "bikem@email.com",
-    "address": "Knorrstrasse 17, 80807 Muenchen",
-    "mobileNumber": "+491570417990",
+    "address": "Knorrstrasse, 80807 Muenchen",
+    "mobileNumber": "+490000000000",
     "role": "customer",
     "laundrywiseCode" : serviceProvider2["laundrywiseCode"]
 }
@@ -153,21 +145,21 @@ URL = BASE_URL + PORT + "laundryroom/"
 LR1 = {
     "serviceProviderId": serviceProvider1["_id"],
     "name": "Blok-A",
-    "address": "Apartment Complex Unity-alpha Josef-Wirth-Weg 21 80939 Munich",
+    "address": "Apartment Complex Munich",
     "operationStartHour": 6,
     "operationEndHour": 24
 }
 LR2 = {
     "serviceProviderId": serviceProvider1["_id"],
     "name": "Blok-B",
-    "address": "Apartment Complex Unity-alpha Josef-Wirth-Weg 21 80939 Munich",
+    "address": "Apartment Complex Munich",
     "operationStartHour": 6,
     "operationEndHour": 24
 }
 LR3 = {
     "serviceProviderId": serviceProvider2["_id"],
     "name": "Laundromat",
-    "address": "Knorrstrasse 42, 80807 Muenchen",
+    "address": "Knorrstrasse, Muenchen",
     "operationStartHour": 6,
     "operationEndHour": 24
 }
@@ -292,13 +284,13 @@ URL = BASE_URL + PORT + "rental/new"
 R1 = {   
     "machineId": machine1["_id"],
     "machineType": "washer",
-    "allocatedTimeId": machine1["timeslots"][1]["_id"],
+    "allocatedTimeId": machine1["timeslots"][20]["_id"],
     "customerId": customer1["_id"]
 }
 R2 = {   
     "machineId": machine1["_id"],
     "machineType": "washer",
-    "allocatedTimeId": machine1["timeslots"][2]["_id"],
+    "allocatedTimeId": machine1["timeslots"][21]["_id"],
     "customerId": customer1["_id"]
 }
 R3 = {   
@@ -328,7 +320,7 @@ R6 = {
 R7 = {   
     "machineId": machine7["_id"],
     "machineType": "dryer",
-    "allocatedTimeId": machine7["timeslots"][29]["_id"],
+    "allocatedTimeId": machine7["timeslots"][30]["_id"],
     "customerId": customer1["_id"]
 }
 R8 = {   
@@ -340,14 +332,38 @@ R8 = {
 R9 = {   
     "machineId": machine10["_id"],
     "machineType": "dryer",
-    "allocatedTimeId": machine10["timeslots"][6]["_id"],
+    "allocatedTimeId": machine10["timeslots"][9]["_id"],
     "customerId": customer6["_id"]
 }
 R10 = {   
     "machineId": machine3["_id"],
     "machineType": "washer",
-    "allocatedTimeId": machine3["timeslots"][5]["_id"],
+    "allocatedTimeId": machine3["timeslots"][24]["_id"],
     "customerId": customer4["_id"]
+}
+R11 = {
+    "machineId": machine1["_id"],
+    "machineType": "washer",
+    "allocatedTimeId": machine1["timeslots"][20]["_id"],
+    "customerId": customer1["_id"]
+}
+R12 = {
+    "machineId": machine2["_id"],
+    "machineType": "washer",
+    "allocatedTimeId": machine2["timeslots"][20]["_id"],
+    "customerId": customer2["_id"]
+}
+R13 = {
+    "machineId": machine3["_id"],
+    "machineType": "washer",
+    "allocatedTimeId": machine3["timeslots"][20]["_id"],
+    "customerId": customer5["_id"]
+}
+R14 = {
+    "machineId": machine2["_id"],
+    "machineType": "washer",
+    "allocatedTimeId": machine3["timeslots"][8]["_id"],
+    "customerId": customer5["_id"]
 }
 
 reservation1 = requests.post(url=URL, json=R1).json()
@@ -360,6 +376,11 @@ reservation7 = requests.post(url=URL, json=R7).json()
 reservation8 = requests.post(url=URL, json=R8).json()
 reservation9 = requests.post(url=URL, json=R9).json()
 reservation10 = requests.post(url=URL, json=R10).json()
+reservation11 = requests.post(url=URL, json=R11).json()
+reservation12 = requests.post(url=URL, json=R12).json()
+reservation13 = requests.post(url=URL, json=R13).json()
+reservation14 = requests.post(url=URL, json=R14).json()
+
 print("Created 10 rentals.")
 
 
