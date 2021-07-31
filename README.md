@@ -1,6 +1,10 @@
+<p align="center">
+  <img src="resources/logo.png" width="850" height="300" />
+</p>
+
 # laundrywise-backend application
 
-laundrywise-frontend application can be found [here](https://gitlab.lrz.de/seba-master-2021/team-39/backend.git)
+laundrywise-frontend application can be found [here](https://github.com/canberkanar/LaundryWise-frontend)
 
 ## Prerequisites
 
