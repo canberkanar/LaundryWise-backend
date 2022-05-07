@@ -2,17 +2,17 @@
   <img src="resources/logo.png" width="850" height="300" />
 </p>
 
-# laundrywise-backend application
+# laundrywise-server application
 
 LaundryWise-frontend application can be found [here](https://github.com/canberkanar/LaundryWise-frontend).
 
 ## Prerequisites
 
-Both for the backend and frontend application:
+Both for the server and frontend application:
 
 * nodejs [official website](https://nodejs.org/en/) - nodejs includes [npm](https://www.npmjs.com/) (node package manager)
 
-Just for the backend application:
+Just for the server application:
 
 * mongodb [official installation guide](https://docs.mongodb.org/manual/administration/install-community/)
 
